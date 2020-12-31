@@ -1,0 +1,11 @@
+const Game = require('./game')
+
+window.context = null
+
+
+function initContext() {
+  const game = new Game(window, '#canvas', 50)
+  game.start()
+}
+
+window.initContext = initContext
