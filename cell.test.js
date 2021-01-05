@@ -1,4 +1,4 @@
-const Cell = require('./cell').Cell
+const {Cell, DeadCell} = require('./cell')
 const World = require('./world')
 const Point = require('./point')
 
@@ -74,17 +74,93 @@ describe('Cell', () => {
     })
   })
 
-  describe.skip('nextGeneration', () => {
+  describe('nextGeneration of Cell', () => {
 
-    test('return dead cell, if there is 0 cells around', () => {})
-    test('return dead cell, if there is 1 cells around', () => {})
-    test('return same cell, if there is 2 cells around', () => {})
-    test('return same cell, if there is 3 cells around', () => {})
-    test('return dead cell, if there is 4 cells around', () => {})
-    test('return dead cell, if there is 5 cells around', () => {})
-    test('return dead cell, if there is 6 cells around', () => {})
-    test('return dead cell, if there is 7 cells around', () => {})
-    test('return dead cell, if there is 8 cells around', () => {})
+    const position = Point.Point(1,1)
+
+    test('return dead cell, if there is 0 cells around', () => {
+      const w = World.buildWithPreset([
+        'xxx',
+        'x@x',
+        'xxx'
+      ])
+      const nextGeneration = w.at(position).nextGeneration()
+      expect(Cell.isAlive(nextGeneration)).toBeFalsy()
+    })
+    test('return dead cell, if there is 1 cells around', () => {
+      const w = World.buildWithPreset([
+        'x@x',
+        'x@x',
+        'xxx'
+      ])
+      const nextGeneration = w.at(position).nextGeneration()
+      expect(Cell.isAlive(nextGeneration)).toBeFalsy()
+    })
+    test('return same cell, if there is 2 cells around', () => {
+      const w = World.buildWithPreset([
+        'x@x',
+        'x@@',
+        'xxx'
+      ])
+      const nextGeneration = w.at(position).nextGeneration()
+      expect(Cell.isAlive(nextGeneration)).toBeTruthy()
+      expect(nextGeneration).toBe(w.at(position))
+    })
+    test('return same cell, if there is 3 cells around', () => {
+      const w = World.buildWithPreset([
+        'x@x',
+        'x@@',
+        'x@x'
+      ])
+      const nextGeneration = w.at(position).nextGeneration()
+      expect(Cell.isAlive(nextGeneration)).toBeTruthy()
+      expect(nextGeneration).toBe(w.at(position))
+    })
+    test('return dead cell, if there is 4 cells around', () => {
+      const w = World.buildWithPreset([
+        'x@x',
+        'x@@',
+        'x@@'
+      ])
+      const nextGeneration = w.at(position).nextGeneration()
+      expect(Cell.isAlive(nextGeneration)).toBeFalsy()
+    })
+    test('return dead cell, if there is 5 cells around', () => {
+      const w = World.buildWithPreset([
+        'x@x',
+        '@@@',
+        'x@@'
+      ])
+      const nextGeneration = w.at(position).nextGeneration()
+      expect(Cell.isAlive(nextGeneration)).toBeFalsy()
+    })
+    test('return dead cell, if there is 6 cells around', () => {
+      const w = World.buildWithPreset([
+        'x@@',
+        '@@@',
+        'x@@'
+      ])
+      const nextGeneration = w.at(position).nextGeneration()
+      expect(Cell.isAlive(nextGeneration)).toBeFalsy()
+    })
+    test('return dead cell, if there is 7 cells around', () => {
+      const w = World.buildWithPreset([
+        '@@@',
+        '@@@',
+        'x@@'
+      ])
+      const nextGeneration = w.at(position).nextGeneration()
+      expect(Cell.isAlive(nextGeneration)).toBeFalsy()
+    })
+    test('return dead cell, if there is 8 cells around', () => {
+      const w = World.buildWithPreset([
+        '@@@',
+        '@@@',
+        '@@@'
+      ])
+      const nextGeneration = w.at(position).nextGeneration()
+      expect(Cell.isAlive(nextGeneration)).toBeFalsy()
+    })
 
   })
 
