@@ -1,5 +1,6 @@
 const World = require('./world')
 const Renderer = require('./gridRenderer')
+const CellStyler = require('./cellStyler')
 
 const {glider} = require('./presets')
 
@@ -17,7 +18,7 @@ class Game {
     const context = canvas.getContext('2d')
     this.#global = globalObject
     this.#world = World.buildWithPreset(glider, size)
-    this.#renderer = new Renderer(context, 10)
+    this.#renderer = new Renderer(context, CellStyler.defaultStyler(), 10)
   }
 
   start() {

@@ -14,6 +14,10 @@ class Cell {
     this.#world = world
   }
 
+  get className() {
+    return this.constructor.name
+  }
+
   get world() {
     if (this.#world) {
       return this.#world
