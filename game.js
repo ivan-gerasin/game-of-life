@@ -1,6 +1,8 @@
 const World = require('./world')
 const Renderer = require('./gridRenderer')
 
+const {glider} = require('./presets')
+
 class Game {
   #world
   #renderer
@@ -14,13 +16,8 @@ class Game {
     const canvas = globalObject.document.querySelector(canvasSelector)
     const context = canvas.getContext('2d')
     this.#global = globalObject
-    const preset = [
-      'xxxx@',
-      'xxxxx@',
-      'xxx@@@'
-    ]
-    this.#world = World.buildWithPreset(preset, size)
-    this.#renderer = new Renderer(context, size, 10)
+    this.#world = World.buildWithPreset(glider, size)
+    this.#renderer = new Renderer(context, 10)
   }
 
   start() {

@@ -2,12 +2,10 @@ const {Cell, DeadCell} = require('./cell')
 
 class GridRenderer {
   #context
-  #gridSize
   #scaleFactor
 
-  constructor(context, gridSize, scaleFactor = 1) {
+  constructor(context, scaleFactor = 1) {
     this.#context = context
-    this.#gridSize = gridSize
     this.#scaleFactor = scaleFactor
   }
 
@@ -32,8 +30,10 @@ class GridRenderer {
   }
 
   render(grid) {
-    for (let y = 0; y < this.#gridSize; y++) {
-      for (let x = 0; x < this.#gridSize; x++) {
+    // Suppose grid is a fair square array
+    const gridSize = grid.length
+    for (let y = 0; y < gridSize; y++) {
+      for (let x = 0; x < gridSize; x++) {
         const cell = grid[y][x]
         const color = Cell.isAlive(cell) ? 'black' : 'white'
         this.putDot(x,y,color)
