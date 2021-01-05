@@ -119,7 +119,7 @@ class World {
   }
 
   boundaryPolicy(cell) {
-    return this.produceCell()
+    return this.produceDeadCell()
   }
 
   isValueOutOfBound(pos) {

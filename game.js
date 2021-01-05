@@ -19,9 +19,8 @@ class Game {
       'xxxxx@',
       'xxx@@@'
     ]
-    const world = World.buildWithPreset(preset, size)
-    this.#world = world
-    this.#renderer = new Renderer(context, size)
+    this.#world = World.buildWithPreset(preset, size)
+    this.#renderer = new Renderer(context, size, 10)
   }
 
   start() {
