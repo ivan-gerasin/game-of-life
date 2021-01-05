@@ -1,5 +1,8 @@
 const {Cell, DeadCell} = require('./cell')
 const Point = require('./point')
+const PresetMap = require('./presetMap')
+
+const defaultPreset = new PresetMap()
 
 class World {
   static DEFAULT_SIZE = 50
@@ -18,7 +21,7 @@ class World {
     }
   }
 
-  static buildWithPreset(preset, size = World.DEFAULT_SIZE) {
+  static buildWithPreset(preset, size = World.DEFAULT_SIZE, presetMap = defaultPreset) {
     const world = new World(size)
     for (let y = 0; y < size; y++) {
       for (let x = 0; x < size; x++) {
@@ -26,10 +29,18 @@ class World {
         if (!isSet) {
           continue
         }
-        const isCell = preset[y][x] === '@'
-        if (isSet && isCell) {
-          world.produceAndSettle(Point.Point(x,y))
+        const cellChar = preset[y][x]
+        const Cons = presetMap.get(cellChar)
+        const position = Point.Point(x,y)
+        if (Cons.name !== world.at(position)) {
+          const cell = new Cons(world)
+          world.settleCell(cell, position)
         }
+
+        // const isCell = preset[y][x] === '@'
+        // if (isSet && isCell) {
+        //   world.produceAndSettle(Point.Point(x,y))
+        // }
       }
     }
     return world
@@ -100,9 +111,9 @@ class World {
     const {x, y} = position
     const fromThisWorld = cell.world === this
     const alreadySettled = !this.__findCellPosition(cell).isEmpty
-    if (!Cell.isAlive(cell)) {
-      throw new Error('Can not settle dead cell')
-    }
+    // if (!Cell.isAlive(cell)) {
+    //   throw new Error('Can not settle dead cell')
+    // }
     if (!fromThisWorld) {
       throw new Error('This cell does not belong to this world')
     }

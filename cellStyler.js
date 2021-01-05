@@ -19,7 +19,7 @@ class CellStyler {
 
   static fromObject(map) {
     const rawMap = []
-    for (let [key, val] of map.entries()) {
+    for (let [key, val] of Object.entries(map)) {
       rawMap.push([key, val])
     }
     return new Map(rawMap)

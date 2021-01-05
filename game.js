@@ -1,6 +1,7 @@
 const World = require('./world')
 const Renderer = require('./gridRenderer')
 const CellStyler = require('./cellStyler')
+const PresetMap = require('./presetMap')
 
 const {glider} = require('./presets')
 

@@ -3,11 +3,19 @@ class Cell {
   #world
   #position
 
+  static isCell(instance) {
+    return instance instanceof Cell
+  }
+
   static isAlive(cell) {
-    if (cell instanceof Cell) {
+    if (Cell.isCell(cell)) {
       return !(cell instanceof DeadCell)
     }
     throw TypeError('Not a cell')
+  }
+
+  static isDead(cell) {
+    return !Cell.isAlive(cell)
   }
 
   constructor(world) {
