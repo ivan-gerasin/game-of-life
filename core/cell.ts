@@ -1,25 +1,31 @@
+import IPoint, {IRealPoint} from './IPoint'
+import IWorld from './IWorld'
+import ICell from './ICell'
+import {Nullable} from '../src/types'
 
-class Cell {
-  #world
-  #position
+export class Cell implements ICell {
+  private _world: Nullable<IWorld> = null
+  private _position: Nullable<IRealPoint> = null
 
-  static isCell(instance) {
+  static isCell(instance: Object) {
     return instance instanceof Cell
   }
 
-  static isAlive(cell) {
+  static isAlive(cell: Object) {
     if (Cell.isCell(cell)) {
       return !(cell instanceof DeadCell)
     }
     throw TypeError('Not a cell')
   }
 
-  static isDead(cell) {
+  static isDead(cell: Object) {
     return !Cell.isAlive(cell)
   }
 
-  constructor(world) {
-    this.#world = world
+  constructor(world?: IWorld) {
+    if (world) {
+      this._world = world
+    }
   }
 
   get className() {
@@ -27,17 +33,17 @@ class Cell {
   }
 
   get world() {
-    if (this.#world) {
-      return this.#world
+    if (this._world) {
+      return this._world
     }
     throw new Error('Cell is not attached to the world')
   }
 
-  get position() {
-    if (!this.#position) {
-      this.#position = this.world.positionOf(this)
+  get position(): IRealPoint {
+    if (!this._position) {
+      this._position = this.world.positionOf(this)
     }
-    return this.#position
+    return this._position
   }
 
   atTop() {
@@ -86,7 +92,7 @@ class Cell {
     ]
   }
 
-  nextGeneration() {
+  nextGeneration(this: Cell): ICell {
     const neighbors = this.getAllNeighborsList()
     const aliveNeighbors = neighbors.filter(cell => Cell.isAlive(cell)).length
     if (aliveNeighbors === 3 || aliveNeighbors === 2) {
@@ -101,8 +107,8 @@ class Cell {
   }
 }
 
-class DeadCell extends Cell {
-  nextGeneration() {
+export class DeadCell extends Cell {
+  nextGeneration(): ICell {
     const neighbors = this.getAllNeighborsList()
     const aliveNeighbors = neighbors.filter(cell => Cell.isAlive(cell))
     if (aliveNeighbors.length === 3) {
@@ -114,8 +120,4 @@ class DeadCell extends Cell {
   toString() {
     return `Dead cell`
   }
-}
-
-module.exports = {
-  Cell, DeadCell
 }

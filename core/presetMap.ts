@@ -1,3 +1,5 @@
+import IPresetMap from './IPresetMap'
+
 const {Cell, DeadCell} = require('./cell')
 
 const DEFAULT_PRESET_MAP = {
@@ -5,8 +7,8 @@ const DEFAULT_PRESET_MAP = {
   'default': DeadCell
 }
 
-class PresetMap {
-  #map = new Map([
+export default class PresetMap implements IPresetMap {
+  private _map = new Map([
     [PresetMap.DEFAULT_KEY, DeadCell],
   ])
 
@@ -16,27 +18,25 @@ class PresetMap {
       if (!PresetMap.isValidKey(k)) {
         throw TypeError(PresetMap.INVALID_KEY_ERR_MSG)
       }
-      this.#map.set(k,v)
+      this._map.set(k,v)
     }
   }
 
   static DEFAULT_KEY = 'default'
   static INVALID_KEY_ERR_MSG = `Not valid key: it should be one char or "${PresetMap.DEFAULT_KEY}"`
 
-  static isValidKey(key) {
-    return 'string' === typeof key && (key.length === 1 || key === PresetMap.DEFAULT_KEY)
+  static isValidKey(key: string) {
+    return (key.length === 1 || key === PresetMap.DEFAULT_KEY)
   }
 
-  get(key) {
+  get(key: string) {
     if (PresetMap.isValidKey(key)) {
-      if (this.#map.has(key)) {
-        return this.#map.get(key)
+      if (this._map.has(key)) {
+        return this._map.get(key)
       }
-      return this.#map.get(PresetMap.DEFAULT_KEY)
+      return this._map.get(PresetMap.DEFAULT_KEY)
     }
     throw TypeError(PresetMap.INVALID_KEY_ERR_MSG)
   }
 
 }
-
-module.exports = PresetMap

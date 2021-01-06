@@ -31,12 +31,12 @@ describe('World', () => {
     expect(Cell.isAlive(w.at(emptyPoint))).toBeFalsy()
   })
 
-  describe('__findCellPosition', () => {
+  describe('findCellPosition', () => {
     test('return position of cell as Point', () => {
       const w = new World()
       const cell = new Cell(w)
       w.settleCell(cell, Point.Point(0,0))
-      const pos = w.__findCellPosition(cell)
+      const pos = w.findCellPosition(cell)
       expect(
         pos.same(Point.Point(0,0))
       ).toBeTruthy()
@@ -45,7 +45,7 @@ describe('World', () => {
     test('return empty point of no such cell found', () => {
       const w = new World()
       const cell = new Cell(w)
-      const pos = w.__findCellPosition(cell)
+      const pos = w.findCellPosition(cell)
       expect(pos).toBe(Point.EmptyPoint)
     })
   })
@@ -77,7 +77,7 @@ describe('World', () => {
     test('will throw an error if cell not from this world but found', () => {
       const anotherWorld = new World()
       const cell = new Cell(w)
-      anotherWorld._setToGrid(0,0,cell)
+      anotherWorld.setToGrid(0,0,cell)
       expect(() => {
         anotherWorld.positionOf(cell)
       }).toThrowError('Cell does not belong to this world, but found')
@@ -93,7 +93,7 @@ describe('World', () => {
   test('produceCell create cell attached to this world, but not settled', () => {
     const w = new World()
     const cell = w.produceCell()
-    const pos = w.__findCellPosition(cell)
+    const pos = w.findCellPosition(cell)
     expect(pos).toBe(Point.EmptyPoint)
     expect(cell.world).toBe(w)
   })
