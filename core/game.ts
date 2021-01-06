@@ -6,7 +6,7 @@ import CellStyler from './cellStyler'
 import GridRenderer from './gridRenderer'
 
 // TODO: just for dev/testing, should not be here
-const {glider} = require('../lib/presets')
+const presets = require('../lib/presets')
 
 export default class Game {
   private world
@@ -14,7 +14,7 @@ export default class Game {
   private global: IGlobal
   private timer: TimerId = null
 
-  interval = 100
+  interval = 200
   running = false
 
   constructor(globalObject: IGlobal, canvasSelector: string, size: number) {
@@ -28,7 +28,7 @@ export default class Game {
       throw ReferenceError('Context not found')
     }
     this.global = globalObject
-    this.world = World.buildWithPreset(glider, size)
+    this.world = World.buildWithPreset(presets.pulsar, size)
     this.renderer = new GridRenderer(context, CellStyler.defaultStyler(), 10)
   }
 

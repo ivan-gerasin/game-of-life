@@ -1,4 +1,4 @@
-import ICell from './cell/ICell'
+import {ICell} from './cell'
 
 export default interface IGridRenderer {
   readonly dotSize: number

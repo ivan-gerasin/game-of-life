@@ -6,7 +6,7 @@ import ICellConstructor from './cell/ICellConstructor'
 type RawPresetMap = Record<string, ICellConstructor>
 
 const DEFAULT_PRESET_MAP: RawPresetMap = {
-  '@': Cell,
+  '#': Cell,
   'default': DeadCell
 }
 
