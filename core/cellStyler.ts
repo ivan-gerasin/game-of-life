@@ -1,6 +1,7 @@
-import {Cell, DeadCell} from './cell/cell'
+import {DeadCell} from './cell/cell'
 import ICellStyler from './ICellStyler'
 import ICell from './cell/ICell'
+import {Cell} from './cell/Cell'
 
 function rgb(r: number,g:number,b:number): string {
   return `rgb(${r},${g},${b})`

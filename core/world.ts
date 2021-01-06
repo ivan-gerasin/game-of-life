@@ -1,9 +1,10 @@
-import {Cell, DeadCell} from './cell/cell'
+import {DeadCell} from './cell/cell'
 import Point from './point'
 import PresetMap from './presetMap'
 import ICoordinate, {IRealCoordinate} from './ICoordinate'
 import ICell from './cell/ICell'
 import IWorld from './IWorld'
+import {Cell} from './cell/Cell'
 
 const defaultPreset = new PresetMap()
 
