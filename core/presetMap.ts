@@ -1,6 +1,6 @@
 import IPresetMap from './IPresetMap'
 
-const {Cell, DeadCell} = require('./cell')
+const {Cell, DeadCell} = require('./cell/cell')
 
 const DEFAULT_PRESET_MAP = {
   '@': Cell,

@@ -1,6 +1,6 @@
 import IGridRenderer from './IGridRenderer'
 import ICellStyler from './ICellStyler'
-import ICell from './ICell'
+import ICell from './cell/ICell'
 
 export default class GridRenderer implements IGridRenderer{
   private readonly context: CanvasRenderingContext2D

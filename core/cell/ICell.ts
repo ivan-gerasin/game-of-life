@@ -1,5 +1,5 @@
-import IWorld from './IWorld'
-import IPoint from './IPoint'
+import IWorld from '../IWorld'
+import IPoint from '../IPoint'
 
 export default interface ICell {
   readonly className: string

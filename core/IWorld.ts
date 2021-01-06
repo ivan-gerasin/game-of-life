@@ -1,4 +1,4 @@
-import ICell from './ICell'
+import ICell from './cell/ICell'
 import {IRealPoint} from './IPoint'
 import ICoordinate, {IRealCoordinate} from './ICoordinate'
 

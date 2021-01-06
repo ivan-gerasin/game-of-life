@@ -1,7 +1,7 @@
-import {IRealPoint} from './IPoint'
-import IWorld from './IWorld'
+import {IRealPoint} from '../IPoint'
+import IWorld from '../IWorld'
 import ICell from './ICell'
-import {Nullable} from '../src/types'
+import {Nullable} from '../../src/types'
 
 export class Cell implements ICell {
   private _world: Nullable<IWorld> = null

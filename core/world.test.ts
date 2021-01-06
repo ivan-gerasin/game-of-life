@@ -1,5 +1,5 @@
 import World from './world'
-import {Cell} from './cell'
+import {Cell} from './cell/cell'
 import Point from './point'
 
 describe('World', () => {
