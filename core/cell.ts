@@ -1,4 +1,4 @@
-import IPoint, {IRealPoint} from './IPoint'
+import {IRealPoint} from './IPoint'
 import IWorld from './IWorld'
 import ICell from './ICell'
 import {Nullable} from '../src/types'

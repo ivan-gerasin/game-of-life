@@ -1,9 +1,9 @@
-const Point = require('./point')
+import Point from './point'
 
 describe('Point', function () {
   const x = 10
   const y = 20
-  let p
+  let p: Point
 
   beforeEach(() => {
     p = new Point(x, y)

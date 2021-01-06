@@ -6,9 +6,10 @@
     "target": "ES2015",
     "module": "commonjs",
     "strict": true,
-    "esModuleInterop": true,
     "skipLibCheck": true,
     "isolatedModules": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true
   }
 }

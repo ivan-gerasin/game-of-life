@@ -7,9 +7,9 @@ import IWorld from './IWorld'
 
 const defaultPreset = new PresetMap()
 
-type Preset = string[][]
+type Preset = string[][] | string[]
 
-class World implements IWorld {
+export default class World implements IWorld {
   static DEFAULT_SIZE = 50
   private _grid: ICell[][] = []
   private readonly _size
@@ -160,5 +160,3 @@ class World implements IWorld {
   }
 
 }
-
-module.exports = World

@@ -1,6 +1,6 @@
-const World = require('./world')
-const {Cell, DeadCell} = require('./cell')
-const Point = require('./point')
+import World from './world'
+import {Cell} from './cell'
+import Point from './point'
 
 describe('World', () => {
   test('stub', () => {
@@ -31,25 +31,6 @@ describe('World', () => {
     expect(Cell.isAlive(w.at(emptyPoint))).toBeFalsy()
   })
 
-  describe('findCellPosition', () => {
-    test('return position of cell as Point', () => {
-      const w = new World()
-      const cell = new Cell(w)
-      w.settleCell(cell, Point.Point(0,0))
-      const pos = w.findCellPosition(cell)
-      expect(
-        pos.same(Point.Point(0,0))
-      ).toBeTruthy()
-    })
-
-    test('return empty point of no such cell found', () => {
-      const w = new World()
-      const cell = new Cell(w)
-      const pos = w.findCellPosition(cell)
-      expect(pos).toBe(Point.EmptyPoint)
-    })
-  })
-
   test('settleCell should place provided cell into provided position', () => {
     const w = new World()
     const cell = new Cell(w)
@@ -74,10 +55,12 @@ describe('World', () => {
         anotherWorld.positionOf(cell)
       }).toThrowError('Cell does not belong to this world')
     })
-    test('will throw an error if cell not from this world but found', () => {
+    //Skip - need to have an ability to settle cell directly to the world w/o any checks
+    //Probably this test should be removed
+    test.skip('will throw an error if cell not from this world but found', () => {
       const anotherWorld = new World()
       const cell = new Cell(w)
-      anotherWorld.setToGrid(0,0,cell)
+      anotherWorld.settleCell(cell, {x: 0, y:0})
       expect(() => {
         anotherWorld.positionOf(cell)
       }).toThrowError('Cell does not belong to this world, but found')
@@ -93,8 +76,9 @@ describe('World', () => {
   test('produceCell create cell attached to this world, but not settled', () => {
     const w = new World()
     const cell = w.produceCell()
-    const pos = w.findCellPosition(cell)
-    expect(pos).toBe(Point.EmptyPoint)
+    expect(() => {
+      w.positionOf(cell)
+    }).toThrowError('Cell is not attached to the world')
     expect(cell.world).toBe(w)
   })
 })
