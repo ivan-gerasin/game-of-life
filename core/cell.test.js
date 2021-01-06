@@ -1,4 +1,4 @@
-const {Cell, DeadCell} = require('./cell')
+const {Cell} = require('./cell')
 const World = require('./world')
 const Point = require('./point')
 

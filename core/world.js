@@ -36,11 +36,6 @@ class World {
           const cell = new Cons(world)
           world.settleCell(cell, position)
         }
-
-        // const isCell = preset[y][x] === '@'
-        // if (isSet && isCell) {
-        //   world.produceAndSettle(Point.Point(x,y))
-        // }
       }
     }
     return world
@@ -121,12 +116,6 @@ class World {
       throw new Error('This cell already settled')
     }
     this._setToGrid(x,y,cell)
-  }
-
-  produceAndSettle(pos) {
-    const cell = this.produceCell()
-    this.settleCell(cell, pos)
-    return cell
   }
 
   boundaryPolicy(cell) {

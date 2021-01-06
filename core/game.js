@@ -1,9 +1,9 @@
 const World = require('./world')
 const Renderer = require('./gridRenderer')
 const CellStyler = require('./cellStyler')
-const PresetMap = require('./presetMap')
 
-const {glider} = require('./presets')
+// TODO: just for dev/testing, should not be here
+const {glider} = require('../lib/presets')
 
 class Game {
   #world

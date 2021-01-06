@@ -1,4 +1,4 @@
-const Game = require('./game')
+const Game = require('./core/game')
 
 window.context = null
 
