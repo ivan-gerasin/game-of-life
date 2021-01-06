@@ -1,7 +1,7 @@
 import ICell from './ICell'
-import {Nullable} from '../../src/types'
-import IWorld from '../IWorld'
-import {IRealPoint} from '../IPoint'
+import {Nullable} from '../../types'
+import {IWorld} from '../world'
+import {IRealPoint} from '../point'
 
 export default abstract class AbstractCell implements ICell {
   private _world: Nullable<IWorld> = null

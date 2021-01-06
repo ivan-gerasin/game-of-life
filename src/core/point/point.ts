@@ -1,4 +1,4 @@
-import {NullableNumber} from '../src/types'
+import {NullableNumber} from '../../types'
 import IPoint from './IPoint'
 
 export default class Point implements IPoint {

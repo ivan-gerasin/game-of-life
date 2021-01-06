@@ -1,5 +1,4 @@
 import ICell from './ICell'
-import Cell from './Cell'
 import AbstractCell from './AbstractCell'
 
 export default class DeadCell extends AbstractCell {

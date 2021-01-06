@@ -1,6 +1,6 @@
-import {IRealPoint} from './IPoint'
-import ICoordinate, {IRealCoordinate} from './ICoordinate'
-import {ICell} from './cell'
+import {IRealPoint} from '../point/IPoint'
+import ICoordinate, {IRealCoordinate} from '../ICoordinate'
+import {ICell} from '../cell'
 
 export default interface IWorld {
   readonly size: number

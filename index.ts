@@ -1,4 +1,4 @@
-import Game from './core/game'
+import Game from './src/core/game/Game'
 
 function initContext() {
   const game = new Game(window, '#canvas', 50)

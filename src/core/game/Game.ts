@@ -1,12 +1,12 @@
-import {TimerId} from '../src/types'
+import {TimerId} from '../../types'
 
-import World from './world'
-import IGlobal from './IGlobal'
-import CellStyler from './cellStyler'
-import GridRenderer from './gridRenderer'
+import {World} from '../world'
+import IGlobal from '../IGlobal'
+import {CellStyler} from '../cellStyler'
+import {GridRenderer} from '../gridRenderer'
 
 // TODO: just for dev/testing, should not be here
-const presets = require('../lib/presets')
+const presets = require('../../lib/presets')
 
 export default class Game {
   private world
@@ -14,7 +14,7 @@ export default class Game {
   private global: IGlobal
   private timer: TimerId = null
 
-  interval = 200
+  interval = 700
   running = false
 
   constructor(globalObject: IGlobal, canvasSelector: string, size: number) {

@@ -1,6 +1,5 @@
-import World from '../world'
-import Point from '../point'
-import IWorld from '../IWorld'
+import {World, IWorld} from '../world'
+import {Point} from '../point'
 import ICell from './ICell'
 import Cell from './Cell'
 

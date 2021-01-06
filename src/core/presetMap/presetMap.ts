@@ -1,7 +1,5 @@
 import IPresetMap from './IPresetMap'
-import Cell from './cell/Cell'
-import DeadCell from './cell/DeadCell'
-import ICellConstructor from './cell/ICellConstructor'
+import {Cell, DeadCell, ICellConstructor} from '../cell'
 
 type RawPresetMap = Record<string, ICellConstructor>
 
