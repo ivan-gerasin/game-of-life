@@ -1,6 +1,7 @@
 import IPresetMap from './IPresetMap'
-
-const {Cell, DeadCell} = require('./cell/cell')
+import Cell from './cell/Cell'
+import DeadCell from './cell/DeadCell'
+import ICellConstructor from './cell/ICellConstructor'
 
 const DEFAULT_PRESET_MAP = {
   '@': Cell,
@@ -29,12 +30,20 @@ export default class PresetMap implements IPresetMap {
     return (key.length === 1 || key === PresetMap.DEFAULT_KEY)
   }
 
+  private _get(key: string): ICellConstructor {
+    const cell = this._map.get(key)
+    if (cell) {
+      return cell
+    }
+    throw ReferenceError(`No such key ${key}`)
+  }
+
   get(key: string) {
     if (PresetMap.isValidKey(key)) {
       if (this._map.has(key)) {
-        return this._map.get(key)
+        return this._get(key)
       }
-      return this._map.get(PresetMap.DEFAULT_KEY)
+      return this._get(PresetMap.DEFAULT_KEY)
     }
     throw TypeError(PresetMap.INVALID_KEY_ERR_MSG)
   }

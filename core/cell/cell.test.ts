@@ -1,8 +1,8 @@
-import World from './world'
-import Point from './point'
-import IWorld from './IWorld'
+import World from '../world'
+import Point from '../point'
+import IWorld from '../IWorld'
 import ICell from './ICell'
-import {Cell} from './Cell'
+import Cell from './Cell'
 
 describe('Cell', () => {
 

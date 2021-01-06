@@ -1,10 +1,10 @@
-import {DeadCell} from './cell/cell'
+import DeadCell from './cell/DeadCell'
 import Point from './point'
 import PresetMap from './presetMap'
 import ICoordinate, {IRealCoordinate} from './ICoordinate'
 import ICell from './cell/ICell'
 import IWorld from './IWorld'
-import {Cell} from './cell/Cell'
+import Cell from './cell/Cell'
 
 const defaultPreset = new PresetMap()
 
@@ -38,7 +38,7 @@ export default class World implements IWorld {
         const cellChar = preset[y][x]
         const Cons = presetMap.get(cellChar)
         const position = Point.Point(x,y)
-        if (Cons.name !== world.at(position)) {
+        if (Cons.name !== world.at(position).className) {
           const cell = new Cons(world)
           world.settleCell(cell, position)
         }

@@ -1,6 +1,6 @@
 import {TimerId} from '../src/types'
 
-const World = require('./world')
+import World from './world'
 import IGlobal from './IGlobal'
 import CellStyler from './cellStyler'
 import GridRenderer from './gridRenderer'

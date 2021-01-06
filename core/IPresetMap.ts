@@ -1,5 +1,5 @@
-import ICell from './cell/ICell'
+import ICellConstructor from './cell/ICellConstructor'
 
 export default interface IPresetMap {
-  get: (key: string) => ICell
+  get: (key: string) => ICellConstructor
 }

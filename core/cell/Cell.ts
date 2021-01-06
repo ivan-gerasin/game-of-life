@@ -2,9 +2,9 @@ import ICell from './ICell'
 import {Nullable} from '../../src/types'
 import IWorld from '../IWorld'
 import {IRealPoint} from '../IPoint'
-import {DeadCell} from './cell'
+import DeadCell from './DeadCell'
 
-export class Cell implements ICell {
+export default class Cell implements ICell {
   private _world: Nullable<IWorld> = null
   private _position: Nullable<IRealPoint> = null
 
