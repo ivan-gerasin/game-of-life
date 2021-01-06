@@ -2,26 +2,10 @@ import ICell from './ICell'
 import {Nullable} from '../../src/types'
 import IWorld from '../IWorld'
 import {IRealPoint} from '../IPoint'
-import DeadCell from './DeadCell'
 
 export default abstract class AbstractCell implements ICell {
   private _world: Nullable<IWorld> = null
   private _position: Nullable<IRealPoint> = null
-
-  static isCell(instance: Object) {
-    return instance instanceof AbstractCell
-  }
-
-  static isAlive(cell: Object) {
-    if (AbstractCell.isCell(cell)) {
-      return !(cell instanceof DeadCell)
-    }
-    throw TypeError('Not a cell')
-  }
-
-  static isDead(cell: Object) {
-    return !AbstractCell.isAlive(cell)
-  }
 
   constructor(world?: IWorld) {
     if (world) {
@@ -96,4 +80,6 @@ export default abstract class AbstractCell implements ICell {
   // Mandatory method for any ICell implementation
   // actual logic of cell
   abstract nextGeneration(): ICell
+
+  abstract get isAlive(): boolean
 }

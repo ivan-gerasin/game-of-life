@@ -24,11 +24,11 @@ describe('World', () => {
     const emptyPoint = Point.Point(1, 1)
 
     const w = World.buildWithPreset(preset)
-    expect(Cell.isAlive(w.at(pos1))).toBeTruthy()
-    expect(Cell.isAlive(w.at(pos2))).toBeTruthy()
-    expect(Cell.isAlive(w.at(pos3))).toBeTruthy()
+    expect(w.at(pos1).isAlive).toBeTruthy()
+    expect(w.at(pos2).isAlive).toBeTruthy()
+    expect(w.at(pos3).isAlive).toBeTruthy()
 
-    expect(Cell.isAlive(w.at(emptyPoint))).toBeFalsy()
+    expect(w.at(emptyPoint).isAlive).toBeFalsy()
   })
 
   test('settleCell should place provided cell into provided position', () => {

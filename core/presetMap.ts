@@ -3,17 +3,17 @@ import Cell from './cell/Cell'
 import DeadCell from './cell/DeadCell'
 import ICellConstructor from './cell/ICellConstructor'
 
-const DEFAULT_PRESET_MAP = {
+type RawPresetMap = Record<string, ICellConstructor>
+
+const DEFAULT_PRESET_MAP: RawPresetMap = {
   '@': Cell,
   'default': DeadCell
 }
 
 export default class PresetMap implements IPresetMap {
-  private _map = new Map([
-    [PresetMap.DEFAULT_KEY, DeadCell],
-  ])
+  private _map = new Map()
 
-  constructor(map = DEFAULT_PRESET_MAP) {
+  constructor(map: RawPresetMap = DEFAULT_PRESET_MAP) {
     // Suppose it should be an object
     for (let [k,v] of Object.entries(map)) {
       if (!PresetMap.isValidKey(k)) {

@@ -5,6 +5,7 @@ export default interface ICell {
   readonly className: string
   readonly world: IWorld
   readonly position: IPoint
+  readonly isAlive: boolean
   atTop(): ICell
   atBottom(): ICell
   atLeft(): ICell

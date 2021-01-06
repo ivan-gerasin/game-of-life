@@ -88,7 +88,7 @@ describe('Cell', () => {
         'xxx'
       ])
       const nextGeneration = w.at(position).nextGeneration()
-      expect(Cell.isAlive(nextGeneration)).toBeFalsy()
+      expect(nextGeneration.isAlive).toBeFalsy()
     })
     test('return dead cell, if there is 1 cells around', () => {
       const w = World.buildWithPreset([
@@ -97,7 +97,7 @@ describe('Cell', () => {
         'xxx'
       ])
       const nextGeneration = w.at(position).nextGeneration()
-      expect(Cell.isAlive(nextGeneration)).toBeFalsy()
+      expect(nextGeneration.isAlive).toBeFalsy()
     })
     test('return same cell, if there is 2 cells around', () => {
       const w = World.buildWithPreset([
@@ -106,7 +106,7 @@ describe('Cell', () => {
         'xxx'
       ])
       const nextGeneration = w.at(position).nextGeneration()
-      expect(Cell.isAlive(nextGeneration)).toBeTruthy()
+      expect(nextGeneration.isAlive).toBeTruthy()
       expect(nextGeneration).toBe(w.at(position))
     })
     test('return same cell, if there is 3 cells around', () => {
@@ -116,7 +116,7 @@ describe('Cell', () => {
         'x@x'
       ])
       const nextGeneration = w.at(position).nextGeneration()
-      expect(Cell.isAlive(nextGeneration)).toBeTruthy()
+      expect(nextGeneration.isAlive).toBeTruthy()
       expect(nextGeneration).toBe(w.at(position))
     })
     test('return dead cell, if there is 4 cells around', () => {
@@ -126,7 +126,7 @@ describe('Cell', () => {
         'x@@'
       ])
       const nextGeneration = w.at(position).nextGeneration()
-      expect(Cell.isAlive(nextGeneration)).toBeFalsy()
+      expect(nextGeneration.isAlive).toBeFalsy()
     })
     test('return dead cell, if there is 5 cells around', () => {
       const w = World.buildWithPreset([
@@ -135,7 +135,7 @@ describe('Cell', () => {
         'x@@'
       ])
       const nextGeneration = w.at(position).nextGeneration()
-      expect(Cell.isAlive(nextGeneration)).toBeFalsy()
+      expect(nextGeneration.isAlive).toBeFalsy()
     })
     test('return dead cell, if there is 6 cells around', () => {
       const w = World.buildWithPreset([
@@ -144,7 +144,7 @@ describe('Cell', () => {
         'x@@'
       ])
       const nextGeneration = w.at(position).nextGeneration()
-      expect(Cell.isAlive(nextGeneration)).toBeFalsy()
+      expect(nextGeneration.isAlive).toBeFalsy()
     })
     test('return dead cell, if there is 7 cells around', () => {
       const w = World.buildWithPreset([
@@ -153,7 +153,7 @@ describe('Cell', () => {
         'x@@'
       ])
       const nextGeneration = w.at(position).nextGeneration()
-      expect(Cell.isAlive(nextGeneration)).toBeFalsy()
+      expect(nextGeneration.isAlive).toBeFalsy()
     })
     test('return dead cell, if there is 8 cells around', () => {
       const w = World.buildWithPreset([
@@ -162,7 +162,7 @@ describe('Cell', () => {
         '@@@'
       ])
       const nextGeneration = w.at(position).nextGeneration()
-      expect(Cell.isAlive(nextGeneration)).toBeFalsy()
+      expect(nextGeneration.isAlive).toBeFalsy()
     })
 
   })
