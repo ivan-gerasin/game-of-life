@@ -31,7 +31,7 @@ describe('Cell', () => {
       settleCell: jest.fn(),
       positionOf: jest.fn(() => cellPosition)
     }
-    cell = new Cell<IClassicCellFactory>(worldMock)
+    cell = new Cell(worldMock)
   })
 
   test('created with provided world attached', () => {
