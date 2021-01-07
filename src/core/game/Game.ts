@@ -2,9 +2,9 @@ import {TimerId} from '../../types'
 
 import {IWorld, World} from '../world'
 import IGlobal from '../IGlobal'
-import {CellStyler, ICellStyler} from '../cellStyler'
+import {ICellStyler} from '../cellStyler'
 import {GridRenderer} from '../gridRenderer'
-import {ICellFactory, ClassicCellFactory} from '../cellFactory'
+import {ICellFactory} from '../cellFactory'
 import {ISymbolToCellMapper} from '../symbolToCellMapper'
 
 // TODO: just for dev/testing, should not be here
@@ -20,12 +20,19 @@ export default class Game<T extends ICellFactory<T>> {
   interval = 700
   running = false
 
-  constructor(globalObject: IGlobal, size: number, symbolToCellMapper: ISymbolToCellMapper<T>, renderer: GridRenderer) {
-    this.styler = new CellStyler()
-    this.global = globalObject
-    const cellFactory = new ClassicCellFactory() as any //TODO remove this hack
-    this.world = World.buildWithPreset(cellFactory, presets.pulsar, symbolToCellMapper, size) as IWorld<any>
+  constructor(
+    globalObject: IGlobal,
+    size: number,
+    symbolToCellMapper: ISymbolToCellMapper<T>,
+    renderer: GridRenderer,
+    styler: ICellStyler<T>,
+    cellFactory: T
+  ) {
     this.renderer = renderer
+    this.global = globalObject
+    this.styler = styler
+    this.world = World.buildWithPreset(cellFactory, presets.pulsar, symbolToCellMapper, size)
+
   }
 
   start() {

@@ -1,13 +1,17 @@
 import Game from './src/core/game/Game'
-import SymbolToCellMapper, {RawPresetMap} from './src/core/symbolToCellMapper/SymbolToCellMapper'
-import {IClassicCellFactory} from './src/core/cellFactory'
+import SymbolToCellMapper from './src/core/symbolToCellMapper/SymbolToCellMapper'
+import {ClassicCellFactory, IClassicCellFactory} from './src/core/cellFactory'
 import Cell from './src/core/cell/Cell'
 import {DeadCell} from './src/core/cell'
 import {GridRenderer} from './src/core/gridRenderer'
+import {CellStyler} from './src/core/cellStyler'
 
 function initContext() {
 
-  const game = new Game(window, 50, createMapper(), createRenderer())
+  const styler = new CellStyler<IClassicCellFactory>()
+  const factory = new ClassicCellFactory()
+
+  const game = new Game<IClassicCellFactory>(window, 50, createMapper(), createRenderer(), styler, factory)
   game.start()
 
   function createRenderer() {
@@ -22,12 +26,12 @@ function initContext() {
     return new GridRenderer(context, 10)
   }
   function createMapper() {
-    const DEFAULT_PRESET_MAP: RawPresetMap<IClassicCellFactory> = {
+    const DEFAULT_PRESET_MAP = {
       '#': Cell,
       'default': DeadCell
     }
 
-    return  new SymbolToCellMapper<IClassicCellFactory>(DEFAULT_PRESET_MAP)
+    return  new SymbolToCellMapper(DEFAULT_PRESET_MAP)
   }
 }
 
