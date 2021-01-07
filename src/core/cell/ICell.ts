@@ -1,19 +1,20 @@
 import {IWorld} from '../world'
 import IPoint from '../point/IPoint'
+import {ISettler} from '../settler'
 
-export default interface ICell {
+export default interface ICell<T extends ISettler<T>> {
   readonly className: string
-  readonly world: IWorld
+  readonly world: IWorld<T>
   readonly position: IPoint
   readonly isAlive: boolean
-  atTop(): ICell
-  atBottom(): ICell
-  atLeft(): ICell
-  atRight(): ICell
-  atTopRight(): ICell
-  atTopLeft(): ICell
-  atBottomLeft(): ICell
-  atBottomRight(): ICell
-  getAllNeighborsList(): ICell[]
-  nextGeneration(): ICell
+  atTop(): ICell<T>
+  atBottom(): ICell<T>
+  atLeft(): ICell<T>
+  atRight(): ICell<T>
+  atTopRight(): ICell<T>
+  atTopLeft(): ICell<T>
+  atBottomLeft(): ICell<T>
+  atBottomRight(): ICell<T>
+  getAllNeighborsList(): ICell<T>[]
+  nextGeneration(): ICell<T>
 }

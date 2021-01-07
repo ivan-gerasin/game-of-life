@@ -1,23 +1,27 @@
 import {TimerId} from '../../types'
 
-import {World} from '../world'
+import {IWorld, World} from '../world'
 import IGlobal from '../IGlobal'
-import {CellStyler} from '../cellStyler'
+import {CellStyler, ICellStyler} from '../cellStyler'
 import {GridRenderer} from '../gridRenderer'
+import world from '../world/world'
+import {IClassicSettler, ISettler, Settler} from '../settler'
+import {ISymbolToCellMapper} from '../symbolToCellMapper'
 
 // TODO: just for dev/testing, should not be here
 const presets = require('../../lib/presets')
 
-export default class Game {
-  private world
+export default class Game<T extends ISettler<T>> {
+  private world: IWorld<T>
   private renderer
   private global: IGlobal
   private timer: TimerId = null
+  private styler: ICellStyler<T>
 
   interval = 700
   running = false
 
-  constructor(globalObject: IGlobal, canvasSelector: string, size: number) {
+  constructor(globalObject: IGlobal, canvasSelector: string, size: number, symbolToCellMapper: ISymbolToCellMapper<T>) {
     const canvas = <HTMLCanvasElement>globalObject.document.querySelector(canvasSelector)
     if (canvas === null) {
       // TODO: we should provide context itself - to know as less as possible about IGlobal
@@ -27,17 +31,20 @@ export default class Game {
     if (context === null) {
       throw ReferenceError('Context not found')
     }
+    this.styler = new CellStyler()
     this.global = globalObject
-    this.world = World.buildWithPreset(presets.pulsar, size)
-    this.renderer = new GridRenderer(context, CellStyler.defaultStyler(), 10)
+
+    const settler = new Settler() as any //TODO remove this hack
+
+    this.world = World.buildWithPreset(settler, presets.pulsar, symbolToCellMapper, size) as IWorld<any>
+    this.renderer = new GridRenderer(context, 10)
   }
 
   start() {
     this.running = true
     this.timer = this.global.setInterval(() => {
       this.global.requestAnimationFrame(() => {
-        const grid = this.world.exportGrid()
-        this.renderer.render(grid)
+        this.renderer.render(this.styler.exportStyledGridFromWorld(this.world))
         this.world.nextGeneration()
         console.log('tick')
       })

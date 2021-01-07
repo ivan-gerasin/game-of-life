@@ -2,12 +2,13 @@ import ICell from './ICell'
 import {Nullable} from '../../types'
 import {IWorld} from '../world'
 import {IRealPoint} from '../point'
+import {ISettler} from '../settler'
 
-export default abstract class AbstractCell implements ICell {
-  private _world: Nullable<IWorld> = null
+export default abstract class AbstractCell<T extends ISettler<T>> implements ICell<T> {
+  private _world: Nullable<IWorld<T>> = null
   private _position: Nullable<IRealPoint> = null
 
-  constructor(world?: IWorld) {
+  constructor(world?: IWorld<T>) {
     if (world) {
       this._world = world
     }
@@ -79,7 +80,7 @@ export default abstract class AbstractCell implements ICell {
 
   // Mandatory method for any ICell implementation
   // actual logic of cell
-  abstract nextGeneration(): ICell
+  abstract nextGeneration(): ICell<T>
 
   abstract get isAlive(): boolean
 }

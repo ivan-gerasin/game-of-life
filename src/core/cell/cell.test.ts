@@ -2,20 +2,36 @@ import {World, IWorld} from '../world'
 import {Point} from '../point'
 import ICell from './ICell'
 import Cell from './Cell'
+import {IClassicSettler, Settler} from '../settler'
+import SymbolToCellMapper, {RawPresetMap} from '../symbolToCellMapper/SymbolToCellMapper'
+import {DeadCell} from './index'
+
+const DEFAULT_PRESET_MAP: RawPresetMap<IClassicSettler> = {
+  '#': Cell,
+  'default': DeadCell
+}
+
+const commonMapper = new SymbolToCellMapper<IClassicSettler>(DEFAULT_PRESET_MAP)
 
 describe('Cell', () => {
 
-  let worldMock: IWorld, cell: ICell
+  let settler: IClassicSettler
+  beforeEach(() => {
+    settler = new Settler()
+  })
+
+  let worldMock: IWorld<IClassicSettler>, cell: ICell<IClassicSettler>
   let cellPosition = Point.Point(0,0)
 
   beforeEach(() => {
+    // @ts-ignore
     worldMock = {
       // @ts-ignore
       at: jest.fn(({x,y}) => ({x,y})),
       settleCell: jest.fn(),
       positionOf: jest.fn(() => cellPosition)
     }
-    cell = new Cell(worldMock)
+    cell = new Cell<IClassicSettler>(worldMock)
   })
 
   test('created with provided world attached', () => {
@@ -81,85 +97,85 @@ describe('Cell', () => {
     const position = Point.Point(1,1)
 
     test('return dead cell, if there is 0 cells around', () => {
-      const w = World.buildWithPreset([
+      const w = World.buildWithPreset(settler,[
         'xxx',
         'x@x',
         'xxx'
-      ])
+      ], commonMapper)
       const nextGeneration = w.at(position).nextGeneration()
       expect(nextGeneration.isAlive).toBeFalsy()
     })
     test('return dead cell, if there is 1 cells around', () => {
-      const w = World.buildWithPreset([
+      const w = World.buildWithPreset(settler, [
         'x@x',
         'x@x',
         'xxx'
-      ])
+      ], commonMapper)
       const nextGeneration = w.at(position).nextGeneration()
       expect(nextGeneration.isAlive).toBeFalsy()
     })
     test('return same cell, if there is 2 cells around', () => {
-      const w = World.buildWithPreset([
+      const w = World.buildWithPreset(settler, [
         'x@x',
         'x@@',
         'xxx'
-      ])
+      ], commonMapper)
       const nextGeneration = w.at(position).nextGeneration()
       expect(nextGeneration.isAlive).toBeTruthy()
       expect(nextGeneration).toBe(w.at(position))
     })
     test('return same cell, if there is 3 cells around', () => {
-      const w = World.buildWithPreset([
+      const w = World.buildWithPreset(settler, [
         'x@x',
         'x@@',
         'x@x'
-      ])
+      ], commonMapper)
       const nextGeneration = w.at(position).nextGeneration()
       expect(nextGeneration.isAlive).toBeTruthy()
       expect(nextGeneration).toBe(w.at(position))
     })
     test('return dead cell, if there is 4 cells around', () => {
-      const w = World.buildWithPreset([
+      const w = World.buildWithPreset(settler, [
         'x@x',
         'x@@',
         'x@@'
-      ])
+      ], commonMapper)
       const nextGeneration = w.at(position).nextGeneration()
       expect(nextGeneration.isAlive).toBeFalsy()
     })
     test('return dead cell, if there is 5 cells around', () => {
-      const w = World.buildWithPreset([
+      const w = World.buildWithPreset(settler, [
         'x@x',
         '@@@',
         'x@@'
-      ])
+      ], commonMapper)
       const nextGeneration = w.at(position).nextGeneration()
       expect(nextGeneration.isAlive).toBeFalsy()
     })
     test('return dead cell, if there is 6 cells around', () => {
-      const w = World.buildWithPreset([
+      const w = World.buildWithPreset(settler, [
         'x@@',
         '@@@',
         'x@@'
-      ])
+      ], commonMapper)
       const nextGeneration = w.at(position).nextGeneration()
       expect(nextGeneration.isAlive).toBeFalsy()
     })
     test('return dead cell, if there is 7 cells around', () => {
-      const w = World.buildWithPreset([
+      const w = World.buildWithPreset(settler, [
         '@@@',
         '@@@',
         'x@@'
-      ])
+      ], commonMapper)
       const nextGeneration = w.at(position).nextGeneration()
       expect(nextGeneration.isAlive).toBeFalsy()
     })
     test('return dead cell, if there is 8 cells around', () => {
-      const w = World.buildWithPreset([
+      const w = World.buildWithPreset(settler, [
         '@@@',
         '@@@',
         '@@@'
-      ])
+      ], commonMapper)
       const nextGeneration = w.at(position).nextGeneration()
       expect(nextGeneration.isAlive).toBeFalsy()
     })

@@ -5,12 +5,10 @@ import {ICell} from '../cell'
 export default class GridRenderer implements IGridRenderer{
   private readonly context: CanvasRenderingContext2D
   private readonly scaleFactor: number = 1
-  private readonly cellStyler: ICellStyler
 
-  constructor(context: CanvasRenderingContext2D, cellStyler: ICellStyler, scaleFactor = 1) {
+  constructor(context: CanvasRenderingContext2D, scaleFactor = 1) {
     this.context = context
     this.scaleFactor = scaleFactor
-    this.cellStyler = cellStyler
   }
 
   get dotSize() {
@@ -29,13 +27,12 @@ export default class GridRenderer implements IGridRenderer{
     this.context.fillRect(scaledX,scaledY,dotSize,dotSize)
   }
 
-  render(grid: ICell[][]) {
+  render(styledGrid: string[][]) {
     // Suppose grid is a fair square array
-    const gridSize = grid.length
+    const gridSize = styledGrid.length
     for (let y = 0; y < gridSize; y++) {
       for (let x = 0; x < gridSize; x++) {
-        const cell = grid[y][x]
-        const color = this.cellStyler.getStyleFor(cell)
+        const color = styledGrid[y][x]
         this.putDot(x,y,color)
       }
     }

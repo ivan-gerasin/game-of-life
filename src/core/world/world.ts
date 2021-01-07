@@ -1,32 +1,35 @@
 import {DeadCell, ICell, Cell} from '../cell'
 import {Point} from '../point'
-import {PresetMap} from '../presetMap'
+import {ISymbolToCellMapper} from '../symbolToCellMapper'
 import ICoordinate, {IRealCoordinate} from '../ICoordinate'
 import IWorld from './IWorld'
-
-const defaultPreset = new PresetMap()
+import ISettler from '../settler/ISettler'
 
 type Preset = string[][] | string[]
 
-export default class World implements IWorld {
+export default class World<T extends ISettler<T>> implements IWorld<T> {
   static DEFAULT_SIZE = 50
-  private _grid: ICell[][] = []
+  private _grid: ICell<T>[][] = []
+  private _map = new WeakMap()
   private readonly _size
 
-  private _map = new WeakMap()
+  readonly settler: T
 
-  constructor(size = World.DEFAULT_SIZE) {
+  constructor(settler: T, size = World.DEFAULT_SIZE) {
+    this.settler = settler
+    settler.attachWorld(this)
     this._size = size
     for (let y = 0; y < size; y++) {
       this._grid[y] = []
       for (let x = 0; x < size; x++) {
-        this.produceAndSettleDeadCell(Point.Point(x,y))
+        const emptyCell = this.settler.empty()
+        this.setToGrid(x,y,emptyCell)
       }
     }
   }
 
-  static buildWithPreset(preset: Preset, size = World.DEFAULT_SIZE, presetMap = defaultPreset) {
-    const world = new World(size)
+  static buildWithPreset<T extends ISettler<T>>(settler: T, preset: Preset, symbolToCellMapper: ISymbolToCellMapper<T>, size = World.DEFAULT_SIZE) {
+    const world = new World<T>(settler, size)
     for (let y = 0; y < size; y++) {
       for (let x = 0; x < size; x++) {
         const isSet = preset && preset[y] && preset[y][x]
@@ -34,7 +37,7 @@ export default class World implements IWorld {
           continue
         }
         const cellChar = preset[y][x]
-        const Cons = presetMap.get(cellChar)
+        const Cons = symbolToCellMapper.get(cellChar)
         const position = Point.Point(x,y)
         if (Cons.name !== world.at(position).className) {
           const cell = new Cons(world)
@@ -43,16 +46,6 @@ export default class World implements IWorld {
       }
     }
     return world
-  }
-
-  produceDeadCell(): DeadCell {
-    return new DeadCell(this)
-  }
-
-  produceAndSettleDeadCell(pos: IRealCoordinate) {
-    const {x,y} = pos
-    const cell = this.produceDeadCell()
-    this.setToGrid(x,y,cell)
   }
 
   get size() {
@@ -67,11 +60,11 @@ export default class World implements IWorld {
     return this._grid[y][x]
   }
 
-  private setToGrid(x: number, y:number, cell: ICell) {
+  private setToGrid(x: number, y:number, cell: ICell<T>) {
     this._grid[y][x] = cell
   }
 
-  private findCellPosition(cell: ICell) {
+  private findCellPosition(cell: ICell<T>) {
     // if (this._map.has(cell)) {
     //   return this._map.get(cell) //not working here
     // }
@@ -88,7 +81,7 @@ export default class World implements IWorld {
     return Point.EmptyPoint
   }
 
-  positionOf(cell: ICell) {
+  positionOf(cell: ICell<T>) {
     const fromThisWorld = cell.world === this
     const position = this.findCellPosition(cell)
     const isEmptyPoint = position.isEmpty
@@ -102,17 +95,10 @@ export default class World implements IWorld {
     throw new Error('Cell is not attached to the world')
   }
 
-  produceCell(): ICell {
-    return new Cell(this)
-  }
-
-  settleCell(cell: ICell, position: IRealCoordinate) {
+  settleCell(cell: ICell<T>, position: IRealCoordinate) {
     const {x, y} = position
     const fromThisWorld = cell.world === this
     const alreadySettled = !this.findCellPosition(cell).isEmpty
-    // if (!Cell.isAlive(cell)) {
-    //   throw new Error('Can not settle dead cell')
-    // }
     if (!fromThisWorld) {
       throw new Error('This cell does not belong to this world')
     }
@@ -123,7 +109,7 @@ export default class World implements IWorld {
   }
 
   boundaryPolicy(coordinate: ICoordinate) {
-    return this.produceDeadCell()
+    return this.settler.empty()
   }
 
   isValueOutOfBound(pos: number) {
@@ -135,14 +121,14 @@ export default class World implements IWorld {
     return this.isValueOutOfBound(x) || this.isValueOutOfBound(y)
   }
 
-  at(coordinate: IRealCoordinate): ICell {
+  at(coordinate: IRealCoordinate): ICell<T> {
     const {x,y} = coordinate
     if (this.isOutOfBound(coordinate)) { return this.boundaryPolicy(coordinate) }
     return this.atGrid(x,y)
   }
 
   nextGeneration() {
-    const newGrid: ICell[][] = []
+    const newGrid: ICell<T>[][] = []
     for (let y = 0; y < this._size; y++) {
       newGrid[y] = []
       for (let x = 0; x < this._size; x++) {
