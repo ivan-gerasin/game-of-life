@@ -1,21 +1,21 @@
 import World from './world'
 import {Point} from '../point'
 import {Cell, DeadCell} from '../cell'
-import {IClassicSettler, Settler} from '../settler'
+import {IClassicCellFactory, ClassicCellFactory} from '../cellFactory'
 import SymbolToCellMapper, {RawPresetMap} from '../symbolToCellMapper/SymbolToCellMapper'
 
 
-const DEFAULT_PRESET_MAP: RawPresetMap<IClassicSettler> = {
+const DEFAULT_PRESET_MAP: RawPresetMap<IClassicCellFactory> = {
   '#': Cell,
   'default': DeadCell
 }
 
-const commonMapper = new SymbolToCellMapper<IClassicSettler>(DEFAULT_PRESET_MAP)
+const commonMapper = new SymbolToCellMapper<IClassicCellFactory>(DEFAULT_PRESET_MAP)
 
 describe('World', () => {
-  let settler: IClassicSettler
+  let cellFactory: IClassicCellFactory
   beforeEach(() => {
-    settler = new Settler()
+    cellFactory = new ClassicCellFactory()
   })
 
   test('buildWithPreset', () => {
@@ -34,7 +34,7 @@ describe('World', () => {
 
     const emptyPoint = Point.Point(1, 1)
 
-    const w = World.buildWithPreset(settler, preset, commonMapper)
+    const w = World.buildWithPreset(cellFactory, preset, commonMapper)
     expect(w.at(pos1).isAlive).toBeTruthy()
     expect(w.at(pos2).isAlive).toBeTruthy()
     expect(w.at(pos3).isAlive).toBeTruthy()
@@ -43,14 +43,14 @@ describe('World', () => {
   })
 
   // test('settleCell should place provided cell into provided position', () => {
-  //   const w = new World(settler)
+  //   const w = new World(cellFactory)
   //   const cell = new Cell(w)
   //   w.settleCell(cell, Point.Point(0,0))
   //   expect(w.at(Point.Point(0,0))).toBe(cell)
   // })
   //
   // describe('positionOf', () => {
-  //   const w = new World(settler)
+  //   const w = new World(cellFactory)
   //   test('will return position of settled cell', () => {
   //     const cell = new Cell(w)
   //     w.settleCell(cell, Point.Point(0,0))
@@ -60,7 +60,7 @@ describe('World', () => {
   //     ).toBeTruthy()
   //   })
   //   test('will throw an error if cell not from this world', () => {
-  //     const anotherWorld = new World(settler)
+  //     const anotherWorld = new World(cellFactory)
   //     const cell = new Cell(w)
   //     expect(() => {
   //       anotherWorld.positionOf(cell)
@@ -69,7 +69,7 @@ describe('World', () => {
   //   //Skip - need to have an ability to settle cell directly to the world w/o any checks
   //   //Probably this test should be removed
   //   test.skip('will throw an error if cell not from this world but found', () => {
-  //     const anotherWorld = new World(settler)
+  //     const anotherWorld = new World(cellFactory)
   //     const cell = new Cell(w)
   //     anotherWorld.settleCell(cell, {x: 0, y:0})
   //     expect(() => {
@@ -77,7 +77,7 @@ describe('World', () => {
   //     }).toThrowError('Cell does not belong to this world, but found')
   //   })
   //   test('will throw an error if cell does not settled', () => {
-  //     const cell = new Cell<IClassicSettler>()
+  //     const cell = new Cell<IClassicCellFactory>()
   //     expect(() => {
   //       w.positionOf(cell)
   //     }).toThrowError('Cell is not attached to the world')
@@ -85,7 +85,7 @@ describe('World', () => {
   // })
   //
   // test('produceCell create cell attached to this world, but not settled', () => {
-  //   const w = new World(settler)
+  //   const w = new World(cellFactory)
   //   const cell = w.produceCell()
   //   expect(() => {
   //     w.positionOf(cell)

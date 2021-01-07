@@ -1,11 +1,11 @@
 import {IRealPoint} from '../point'
 import ICoordinate, {IRealCoordinate} from '../ICoordinate'
 import {ICell} from '../cell'
-import {ISettler} from '../settler'
+import {ICellFactory} from '../cellFactory'
 
-export default interface IWorld<T extends ISettler<T>> {
+export default interface IWorld<T extends ICellFactory<T>> {
   readonly size: number
-  readonly settler: T
+  readonly cellFactory: T
   positionOf: (cell: ICell<T>) => IRealPoint
   boundaryPolicy: (cell: ICoordinate) => ICell<T>
   isValueOutOfBound: (position: number) => boolean

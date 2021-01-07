@@ -1,8 +1,8 @@
 import ICell from './ICell'
 import AbstractCell from './AbstractCell'
-import {ISettler} from '../settler'
+import {ICellFactory} from '../cellFactory'
 
-export default class Cell<T extends ISettler<T>> extends AbstractCell<T> {
+export default class Cell<T extends ICellFactory<T>> extends AbstractCell<T> {
   readonly isAlive = true
   nextGeneration(this: Cell<T>): ICell<T> {
     const neighbors = this.getAllNeighborsList()
@@ -10,6 +10,6 @@ export default class Cell<T extends ISettler<T>> extends AbstractCell<T> {
     if (aliveNeighbors === 3 || aliveNeighbors === 2) {
       return this
     }
-    return this.world.settler.empty()
+    return this.world.cellFactory.empty()
   }
 }

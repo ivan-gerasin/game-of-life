@@ -1,10 +1,10 @@
 import ISymbolToCellMapper from './ISymbolToCellMapper'
 import {ICellConstructor} from '../cell'
-import {ISettler} from '../settler'
+import {ICellFactory} from '../cellFactory'
 
-export type RawPresetMap<T extends ISettler<T>> = Record<string, ICellConstructor<T>>
+export type RawPresetMap<T extends ICellFactory<T>> = Record<string, ICellConstructor<T>>
 
-export default class SymbolToCellMapper<T extends ISettler<T>> implements ISymbolToCellMapper<T> {
+export default class SymbolToCellMapper<T extends ICellFactory<T>> implements ISymbolToCellMapper<T> {
   private _map = new Map()
 
   constructor(map: RawPresetMap<T>) {

@@ -1,7 +1,7 @@
 import {IWorld} from '../world'
 import ICell from './ICell'
-import {ISettler} from '../settler'
+import {ICellFactory} from '../cellFactory'
 
-export default interface ICellConstructor<T extends ISettler<T>> {
+export default interface ICellConstructor<T extends ICellFactory<T>> {
   new(world?: IWorld<T>): ICell<T>
 }

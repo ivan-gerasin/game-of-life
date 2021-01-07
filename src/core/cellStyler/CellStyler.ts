@@ -1,7 +1,7 @@
 import ICellStyler from './ICellStyler'
 import {Cell, DeadCell, ICell} from '../cell'
 import {IWorld} from '../world'
-import {ISettler} from '../settler'
+import {ICellFactory} from '../cellFactory'
 
 function rgb(r: number,g:number,b:number): string {
   return `rgb(${r},${g},${b})`
@@ -24,7 +24,7 @@ type ListOfCellColors = CellColorPair[]
 
 export type CellStylerMap = Map<CellName, Color>
 
-export default class CellStyler<T extends ISettler<T>> implements ICellStyler<T> {
+export default class CellStyler<T extends ICellFactory<T>> implements ICellStyler<T> {
   private map: CellStylerMap
 
   static fromObject(map: Record<CellName, Color>) {

@@ -3,33 +3,33 @@ import {Point} from '../point'
 import {ISymbolToCellMapper} from '../symbolToCellMapper'
 import ICoordinate, {IRealCoordinate} from '../ICoordinate'
 import IWorld from './IWorld'
-import ISettler from '../settler/ISettler'
+import ICellFactory from '../cellFactory/ICellFactory'
 
 type Preset = string[][] | string[]
 
-export default class World<T extends ISettler<T>> implements IWorld<T> {
+export default class World<T extends ICellFactory<T>> implements IWorld<T> {
   static DEFAULT_SIZE = 50
   private _grid: ICell<T>[][] = []
   private _map = new WeakMap()
   private readonly _size
 
-  readonly settler: T
+  readonly cellFactory: T
 
-  constructor(settler: T, size = World.DEFAULT_SIZE) {
-    this.settler = settler
-    settler.attachWorld(this)
+  constructor(cellFactory: T, size = World.DEFAULT_SIZE) {
+    this.cellFactory = cellFactory
+    cellFactory.attachWorld(this)
     this._size = size
     for (let y = 0; y < size; y++) {
       this._grid[y] = []
       for (let x = 0; x < size; x++) {
-        const emptyCell = this.settler.empty()
+        const emptyCell = this.cellFactory.empty()
         this.setToGrid(x,y,emptyCell)
       }
     }
   }
 
-  static buildWithPreset<T extends ISettler<T>>(settler: T, preset: Preset, symbolToCellMapper: ISymbolToCellMapper<T>, size = World.DEFAULT_SIZE) {
-    const world = new World<T>(settler, size)
+  static buildWithPreset<T extends ICellFactory<T>>(cellFactory: T, preset: Preset, symbolToCellMapper: ISymbolToCellMapper<T>, size = World.DEFAULT_SIZE) {
+    const world = new World<T>(cellFactory, size)
     for (let y = 0; y < size; y++) {
       for (let x = 0; x < size; x++) {
         const isSet = preset && preset[y] && preset[y][x]
@@ -109,7 +109,7 @@ export default class World<T extends ISettler<T>> implements IWorld<T> {
   }
 
   boundaryPolicy(coordinate: ICoordinate) {
-    return this.settler.empty()
+    return this.cellFactory.empty()
   }
 
   isValueOutOfBound(pos: number) {

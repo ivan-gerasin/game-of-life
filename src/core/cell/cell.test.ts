@@ -2,25 +2,25 @@ import {World, IWorld} from '../world'
 import {Point} from '../point'
 import ICell from './ICell'
 import Cell from './Cell'
-import {IClassicSettler, Settler} from '../settler'
+import {IClassicCellFactory, ClassicCellFactory} from '../cellFactory'
 import SymbolToCellMapper, {RawPresetMap} from '../symbolToCellMapper/SymbolToCellMapper'
 import {DeadCell} from './index'
 
-const DEFAULT_PRESET_MAP: RawPresetMap<IClassicSettler> = {
+const DEFAULT_PRESET_MAP: RawPresetMap<IClassicCellFactory> = {
   '#': Cell,
   'default': DeadCell
 }
 
-const commonMapper = new SymbolToCellMapper<IClassicSettler>(DEFAULT_PRESET_MAP)
+const commonMapper = new SymbolToCellMapper<IClassicCellFactory>(DEFAULT_PRESET_MAP)
 
 describe('Cell', () => {
 
-  let settler: IClassicSettler
+  let cellFactory: IClassicCellFactory
   beforeEach(() => {
-    settler = new Settler()
+    cellFactory = new ClassicCellFactory()
   })
 
-  let worldMock: IWorld<IClassicSettler>, cell: ICell<IClassicSettler>
+  let worldMock: IWorld<IClassicCellFactory>, cell: ICell<IClassicCellFactory>
   let cellPosition = Point.Point(0,0)
 
   beforeEach(() => {
@@ -31,7 +31,7 @@ describe('Cell', () => {
       settleCell: jest.fn(),
       positionOf: jest.fn(() => cellPosition)
     }
-    cell = new Cell<IClassicSettler>(worldMock)
+    cell = new Cell<IClassicCellFactory>(worldMock)
   })
 
   test('created with provided world attached', () => {
@@ -97,7 +97,7 @@ describe('Cell', () => {
     const position = Point.Point(1,1)
 
     test('return dead cell, if there is 0 cells around', () => {
-      const w = World.buildWithPreset(settler,[
+      const w = World.buildWithPreset(cellFactory,[
         'xxx',
         'x@x',
         'xxx'
@@ -106,7 +106,7 @@ describe('Cell', () => {
       expect(nextGeneration.isAlive).toBeFalsy()
     })
     test('return dead cell, if there is 1 cells around', () => {
-      const w = World.buildWithPreset(settler, [
+      const w = World.buildWithPreset(cellFactory, [
         'x@x',
         'x@x',
         'xxx'
@@ -115,7 +115,7 @@ describe('Cell', () => {
       expect(nextGeneration.isAlive).toBeFalsy()
     })
     test('return same cell, if there is 2 cells around', () => {
-      const w = World.buildWithPreset(settler, [
+      const w = World.buildWithPreset(cellFactory, [
         'x@x',
         'x@@',
         'xxx'
@@ -125,7 +125,7 @@ describe('Cell', () => {
       expect(nextGeneration).toBe(w.at(position))
     })
     test('return same cell, if there is 3 cells around', () => {
-      const w = World.buildWithPreset(settler, [
+      const w = World.buildWithPreset(cellFactory, [
         'x@x',
         'x@@',
         'x@x'
@@ -135,7 +135,7 @@ describe('Cell', () => {
       expect(nextGeneration).toBe(w.at(position))
     })
     test('return dead cell, if there is 4 cells around', () => {
-      const w = World.buildWithPreset(settler, [
+      const w = World.buildWithPreset(cellFactory, [
         'x@x',
         'x@@',
         'x@@'
@@ -144,7 +144,7 @@ describe('Cell', () => {
       expect(nextGeneration.isAlive).toBeFalsy()
     })
     test('return dead cell, if there is 5 cells around', () => {
-      const w = World.buildWithPreset(settler, [
+      const w = World.buildWithPreset(cellFactory, [
         'x@x',
         '@@@',
         'x@@'
@@ -153,7 +153,7 @@ describe('Cell', () => {
       expect(nextGeneration.isAlive).toBeFalsy()
     })
     test('return dead cell, if there is 6 cells around', () => {
-      const w = World.buildWithPreset(settler, [
+      const w = World.buildWithPreset(cellFactory, [
         'x@@',
         '@@@',
         'x@@'
@@ -162,7 +162,7 @@ describe('Cell', () => {
       expect(nextGeneration.isAlive).toBeFalsy()
     })
     test('return dead cell, if there is 7 cells around', () => {
-      const w = World.buildWithPreset(settler, [
+      const w = World.buildWithPreset(cellFactory, [
         '@@@',
         '@@@',
         'x@@'
@@ -171,7 +171,7 @@ describe('Cell', () => {
       expect(nextGeneration.isAlive).toBeFalsy()
     })
     test('return dead cell, if there is 8 cells around', () => {
-      const w = World.buildWithPreset(settler, [
+      const w = World.buildWithPreset(cellFactory, [
         '@@@',
         '@@@',
         '@@@'

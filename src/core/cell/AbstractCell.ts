@@ -2,9 +2,9 @@ import ICell from './ICell'
 import {Nullable} from '../../types'
 import {IWorld} from '../world'
 import {IRealPoint} from '../point'
-import {ISettler} from '../settler'
+import {ICellFactory} from '../cellFactory'
 
-export default abstract class AbstractCell<T extends ISettler<T>> implements ICell<T> {
+export default abstract class AbstractCell<T extends ICellFactory<T>> implements ICell<T> {
   private _world: Nullable<IWorld<T>> = null
   private _position: Nullable<IRealPoint> = null
 

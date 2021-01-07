@@ -1,8 +1,8 @@
 import {IWorld} from '../world'
 import IPoint from '../point/IPoint'
-import {ISettler} from '../settler'
+import {ICellFactory} from '../cellFactory'
 
-export default interface ICell<T extends ISettler<T>> {
+export default interface ICell<T extends ICellFactory<T>> {
   readonly className: string
   readonly world: IWorld<T>
   readonly position: IPoint

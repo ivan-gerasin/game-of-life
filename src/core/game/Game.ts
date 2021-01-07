@@ -5,13 +5,13 @@ import IGlobal from '../IGlobal'
 import {CellStyler, ICellStyler} from '../cellStyler'
 import {GridRenderer} from '../gridRenderer'
 import world from '../world/world'
-import {IClassicSettler, ISettler, Settler} from '../settler'
+import {IClassicCellFactory, ICellFactory, ClassicCellFactory} from '../cellFactory'
 import {ISymbolToCellMapper} from '../symbolToCellMapper'
 
 // TODO: just for dev/testing, should not be here
 const presets = require('../../lib/presets')
 
-export default class Game<T extends ISettler<T>> {
+export default class Game<T extends ICellFactory<T>> {
   private world: IWorld<T>
   private renderer
   private global: IGlobal
@@ -34,9 +34,9 @@ export default class Game<T extends ISettler<T>> {
     this.styler = new CellStyler()
     this.global = globalObject
 
-    const settler = new Settler() as any //TODO remove this hack
+    const cellFactory = new ClassicCellFactory() as any //TODO remove this hack
 
-    this.world = World.buildWithPreset(settler, presets.pulsar, symbolToCellMapper, size) as IWorld<any>
+    this.world = World.buildWithPreset(cellFactory, presets.pulsar, symbolToCellMapper, size) as IWorld<any>
     this.renderer = new GridRenderer(context, 10)
   }
 
