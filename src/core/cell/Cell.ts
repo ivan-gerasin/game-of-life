@@ -1,10 +1,10 @@
 import ICell from './ICell'
 import AbstractCell from './AbstractCell'
-import {ICellFactory} from '../cellFactory'
+import {IClassicCellFactory} from '../cellFactory'
 
-export default class Cell<T extends ICellFactory<T>> extends AbstractCell<T> {
+export default class Cell extends AbstractCell<IClassicCellFactory> {
   readonly isAlive = true
-  nextGeneration(this: Cell<T>): ICell<T> {
+  nextGeneration(this: Cell): ICell<IClassicCellFactory> {
     const neighbors = this.getAllNeighborsList()
     const aliveNeighbors = neighbors.filter(cell => cell.isAlive).length
     if (aliveNeighbors === 3 || aliveNeighbors === 2) {
