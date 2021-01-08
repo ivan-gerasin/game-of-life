@@ -5,7 +5,7 @@ import ICoordinate, {IRealCoordinate} from '../ICoordinate'
 import IWorld from './IWorld'
 import ICellFactory from '../cellFactory/ICellFactory'
 
-type Preset = string[][] | string[]
+export type Preset = string[][] | string[]
 
 export default class World<FactoryType extends ICellFactory<FactoryType,CellType>, CellType extends ICell<FactoryType,CellType>> implements IWorld<FactoryType,CellType> {
   static DEFAULT_SIZE = 50

@@ -1,2 +1,2 @@
-import ICellFactory from './ICellFactory'
-export {ICellFactory}
+import ICellFactory, {FactoryMethod} from './ICellFactory'
+export {ICellFactory, FactoryMethod}

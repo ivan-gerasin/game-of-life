@@ -1,15 +1,12 @@
 import {TimerId} from '../../types'
 
-import {IWorld, World} from '../world'
+import {IWorld, Preset, World} from '../world'
 import IGlobal from '../IGlobal'
 import {ICellStyler} from '../cellStyler'
 import {GridRenderer} from '../gridRenderer'
 import {ICellFactory} from '../cellFactory'
 import {ISymbolToCellMapper} from '../symbolToCellMapper'
 import {ICell} from '../cell'
-
-// TODO: just for dev/testing, should not be here
-const presets = require('../../lib/presets')
 
 export default class Game<FactoryType extends ICellFactory<FactoryType, CellType>, CellType extends ICell<FactoryType,CellType>> {
   private readonly world: IWorld<FactoryType, CellType>
@@ -18,12 +15,13 @@ export default class Game<FactoryType extends ICellFactory<FactoryType, CellType
   private timer: TimerId = null
   private styler: ICellStyler<FactoryType, CellType>
 
-  interval = 700
+  interval = 100
   running = false
 
   constructor(
     globalObject: IGlobal,
     size: number,
+    preset: Preset,
     symbolToCellMapper: ISymbolToCellMapper<FactoryType, CellType>,
     renderer: GridRenderer,
     styler: ICellStyler<FactoryType, CellType>,
@@ -32,7 +30,7 @@ export default class Game<FactoryType extends ICellFactory<FactoryType, CellType
     this.renderer = renderer
     this.global = globalObject
     this.styler = styler
-    this.world = World.buildWithPreset(cellFactory, presets.pulsar, symbolToCellMapper, size)
+    this.world = World.buildWithPreset(cellFactory, preset, symbolToCellMapper, size)
 
   }
 

@@ -14,7 +14,7 @@ export default class ClassicCellFactory implements IClassicCellFactory {
     if (this.world) {
       return  new Cons(this.world)
     }
-    throw new TypeError('ClassicCellFactory does not attached to the world')
+    throw new ReferenceError('ClassicCellFactory does not attached to the world')
   }
 
   attachWorld(world: ClassicWorld) {

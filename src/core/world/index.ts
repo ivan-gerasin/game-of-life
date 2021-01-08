@@ -1,4 +1,4 @@
-import World from './world'
+import World, {Preset} from './world'
 import IWorld from './IWorld'
 
-export {World, IWorld}
+export {World, IWorld, Preset}
