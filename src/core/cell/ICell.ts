@@ -2,19 +2,21 @@ import {IWorld} from '../world'
 import IPoint from '../point/IPoint'
 import {ICellFactory} from '../cellFactory'
 
-export default interface ICell<T extends ICellFactory<T>> {
+export default interface ICell<
+  FactoryType extends ICellFactory<FactoryType,CellType>,
+  CellType extends ICell<FactoryType,CellType>
+  > {
   readonly className: string
-  readonly world: IWorld<T>
+  readonly world: IWorld<FactoryType, CellType>
   readonly position: IPoint
-  readonly isAlive: boolean
-  atTop(): ICell<T>
-  atBottom(): ICell<T>
-  atLeft(): ICell<T>
-  atRight(): ICell<T>
-  atTopRight(): ICell<T>
-  atTopLeft(): ICell<T>
-  atBottomLeft(): ICell<T>
-  atBottomRight(): ICell<T>
-  getAllNeighborsList(): ICell<T>[]
-  nextGeneration(): ICell<T>
+  atTop(): CellType
+  atBottom(): CellType
+  atLeft(): CellType
+  atRight(): CellType
+  atTopRight(): CellType
+  atTopLeft(): CellType
+  atBottomLeft(): CellType
+  atBottomRight(): CellType
+  getAllNeighborsList(): CellType[]
+  nextGeneration(): CellType
 }

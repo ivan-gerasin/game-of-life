@@ -1,4 +1,4 @@
-import {DeadCell, ICell, Cell} from '../cell'
+import {ICell} from '../cell'
 import {Point} from '../point'
 import {ISymbolToCellMapper} from '../symbolToCellMapper'
 import ICoordinate, {IRealCoordinate} from '../ICoordinate'
@@ -7,15 +7,15 @@ import ICellFactory from '../cellFactory/ICellFactory'
 
 type Preset = string[][] | string[]
 
-export default class World<T extends ICellFactory<T>> implements IWorld<T> {
+export default class World<FactoryType extends ICellFactory<FactoryType,CellType>, CellType extends ICell<FactoryType,CellType>> implements IWorld<FactoryType,CellType> {
   static DEFAULT_SIZE = 50
-  private _grid: ICell<T>[][] = []
+  private _grid: CellType[][] = []
   private _map = new WeakMap()
   private readonly _size
 
-  readonly cellFactory: T
+  readonly cellFactory: FactoryType
 
-  constructor(cellFactory: T, size = World.DEFAULT_SIZE) {
+  constructor(cellFactory: FactoryType, size = World.DEFAULT_SIZE) {
     this.cellFactory = cellFactory
     cellFactory.attachWorld(this)
     this._size = size
@@ -28,8 +28,8 @@ export default class World<T extends ICellFactory<T>> implements IWorld<T> {
     }
   }
 
-  static buildWithPreset<T extends ICellFactory<T>>(cellFactory: T, preset: Preset, symbolToCellMapper: ISymbolToCellMapper<T>, size = World.DEFAULT_SIZE) {
-    const world = new World<T>(cellFactory, size)
+  static buildWithPreset<FactoryType extends ICellFactory<FactoryType, CellType>, CellType extends ICell<FactoryType,CellType>>(cellFactory: FactoryType, preset: Preset, symbolToCellMapper: ISymbolToCellMapper<FactoryType, CellType>, size = World.DEFAULT_SIZE) {
+    const world = new World<FactoryType, CellType>(cellFactory, size)
     for (let y = 0; y < size; y++) {
       for (let x = 0; x < size; x++) {
         const isSet = preset && preset[y] && preset[y][x]
@@ -60,11 +60,11 @@ export default class World<T extends ICellFactory<T>> implements IWorld<T> {
     return this._grid[y][x]
   }
 
-  private setToGrid(x: number, y:number, cell: ICell<T>) {
+  private setToGrid(x: number, y:number, cell: CellType) {
     this._grid[y][x] = cell
   }
 
-  private findCellPosition(cell: ICell<T>) {
+  private findCellPosition(cell: CellType) {
     // if (this._map.has(cell)) {
     //   return this._map.get(cell) //not working here
     // }
@@ -81,7 +81,7 @@ export default class World<T extends ICellFactory<T>> implements IWorld<T> {
     return Point.EmptyPoint
   }
 
-  positionOf(cell: ICell<T>) {
+  positionOf(cell: CellType) {
     const fromThisWorld = cell.world === this
     const position = this.findCellPosition(cell)
     const isEmptyPoint = position.isEmpty
@@ -95,7 +95,7 @@ export default class World<T extends ICellFactory<T>> implements IWorld<T> {
     throw new Error('Cell is not attached to the world')
   }
 
-  settleCell(cell: ICell<T>, position: IRealCoordinate) {
+  settleCell(cell: CellType, position: IRealCoordinate) {
     const {x, y} = position
     const fromThisWorld = cell.world === this
     const alreadySettled = !this.findCellPosition(cell).isEmpty
@@ -121,14 +121,14 @@ export default class World<T extends ICellFactory<T>> implements IWorld<T> {
     return this.isValueOutOfBound(x) || this.isValueOutOfBound(y)
   }
 
-  at(coordinate: IRealCoordinate): ICell<T> {
+  at(coordinate: IRealCoordinate): CellType {
     const {x,y} = coordinate
     if (this.isOutOfBound(coordinate)) { return this.boundaryPolicy(coordinate) }
     return this.atGrid(x,y)
   }
 
   nextGeneration() {
-    const newGrid: ICell<T>[][] = []
+    const newGrid: CellType[][] = []
     for (let y = 0; y < this._size; y++) {
       newGrid[y] = []
       for (let x = 0; x < this._size; x++) {

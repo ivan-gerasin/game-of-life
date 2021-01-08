@@ -2,13 +2,16 @@
 import {ICell} from '../cell'
 import {IWorld} from '../world'
 
-export type FactoryMethod<T extends ICellFactory<T>> = () => ICell<T>
+export type FactoryMethod<
+  FactoryType extends ICellFactory<FactoryType, CellType>,
+  CellType extends ICell<FactoryType, CellType>
+  > = () => CellType
 
-// type T here is possibly extended ICellFactory
-export default interface ICellFactory<T extends ICellFactory<T>> {
-  attachWorld: (world: IWorld<T>) => void
+// type FactoryType here is possibly extended ICellFactory
+export default interface ICellFactory<FactoryType extends ICellFactory<FactoryType, CellType>, CellType extends ICell<FactoryType, CellType>> {
+  attachWorld: (world: IWorld<FactoryType, CellType>) => void
 
   // Empty is used to fill world with cells where no cell defined
-  empty: FactoryMethod<T>
+  empty: FactoryMethod<FactoryType, CellType>
 
 }

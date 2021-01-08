@@ -1,6 +1,6 @@
-import {ICellConstructor} from '../cell'
+import {ICell, ICellConstructor} from '../cell'
 import {ICellFactory} from '../cellFactory'
 
-export default interface ISymbolToCellMapper<T extends ICellFactory<T>> {
-  get: (key: string) => ICellConstructor<T>
+export default interface ISymbolToCellMapper<FactoryType extends ICellFactory<FactoryType, CellType>, CellType extends ICell<FactoryType,CellType>> {
+  get: (key: string) => ICellConstructor<FactoryType, CellType>
 }

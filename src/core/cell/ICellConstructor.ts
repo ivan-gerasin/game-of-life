@@ -2,6 +2,6 @@ import {IWorld} from '../world'
 import ICell from './ICell'
 import {ICellFactory} from '../cellFactory'
 
-export default interface ICellConstructor<T extends ICellFactory<T>> {
-  new(world?: IWorld<T>): ICell<T>
+export default interface ICellConstructor<FactoryType extends ICellFactory<FactoryType,CellType>, CellType extends ICell<FactoryType, CellType>> {
+  new(world?: IWorld<FactoryType, CellType>): CellType
 }

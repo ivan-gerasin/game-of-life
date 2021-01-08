@@ -4,11 +4,15 @@ import {IWorld} from '../world'
 import {IRealPoint} from '../point'
 import {ICellFactory} from '../cellFactory'
 
-export default abstract class AbstractCell<T extends ICellFactory<T>> implements ICell<T> {
-  private _world: Nullable<IWorld<T>> = null
+export default abstract class AbstractCell<
+  FactoryType extends ICellFactory<FactoryType, CellType>,
+  CellType extends ICell<FactoryType, CellType>
+  > implements ICell<FactoryType, CellType> {
+
+  private readonly _world: Nullable<IWorld<FactoryType, CellType>> = null
   private _position: Nullable<IRealPoint> = null
 
-  constructor(world?: IWorld<T>) {
+  constructor(world?: IWorld<FactoryType, CellType>) {
     if (world) {
       this._world = world
     }
@@ -27,7 +31,13 @@ export default abstract class AbstractCell<T extends ICellFactory<T>> implements
 
   get position(): IRealPoint {
     if (!this._position) {
-      this._position = this.world.positionOf(this)
+      // Here `this as unknown as CellType` is a hack to avoid error:
+      /**
+       * 'AbstractCell<FactoryType, CellType>' is assignable to the constraint
+       * of type 'CellType', but 'CellType' could be instantiated with
+       * a different subtype of constraint 'ICell<FactoryType, CellType>'.
+       * */
+      this._position = this.world.positionOf(this as unknown as CellType)
     }
     return this._position
   }
@@ -80,7 +90,6 @@ export default abstract class AbstractCell<T extends ICellFactory<T>> implements
 
   // Mandatory method for any ICell implementation
   // actual logic of cell
-  abstract nextGeneration(): ICell<T>
+  abstract nextGeneration(): CellType
 
-  abstract get isAlive(): boolean
 }

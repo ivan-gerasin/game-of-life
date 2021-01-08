@@ -1,4 +1,8 @@
 import CellStyler from './CellStyler'
 import ICellStyler from './ICellStyler'
 
-export {CellStyler, ICellStyler}
+function rgb(r: number,g:number,b:number): string {
+  return `rgb(${r},${g},${b})`
+}
+
+export {CellStyler, ICellStyler, rgb}

@@ -1,13 +1,13 @@
 import ISymbolToCellMapper from './ISymbolToCellMapper'
-import {ICellConstructor} from '../cell'
+import {ICell, ICellConstructor} from '../cell'
 import {ICellFactory} from '../cellFactory'
 
-export type RawPresetMap<T extends ICellFactory<T>> = Record<string, ICellConstructor<T>>
+export type RawPresetMap<FactoryType extends ICellFactory<FactoryType,CellType>, CellType extends ICell<FactoryType,CellType>> = Record<string, ICellConstructor<FactoryType,CellType>>
 
-export default class SymbolToCellMapper<T extends ICellFactory<T>> implements ISymbolToCellMapper<T> {
+export default class SymbolToCellMapper<FactoryType extends ICellFactory<FactoryType, CellType>, CellType extends ICell<FactoryType,CellType>> implements ISymbolToCellMapper<FactoryType, CellType> {
   private _map = new Map()
 
-  constructor(map: RawPresetMap<T>) {
+  constructor(map: RawPresetMap<FactoryType, CellType>) {
     // Suppose it should be an object
     for (let [k,v] of Object.entries(map)) {
       if (!SymbolToCellMapper.isValidKey(k)) {
@@ -24,7 +24,7 @@ export default class SymbolToCellMapper<T extends ICellFactory<T>> implements IS
     return (key.length === 1 || key === SymbolToCellMapper.DEFAULT_KEY)
   }
 
-  private _get(key: string): ICellConstructor<T> {
+  private _get(key: string): ICellConstructor<FactoryType,CellType> {
     const cell = this._map.get(key)
     if (cell) {
       return cell

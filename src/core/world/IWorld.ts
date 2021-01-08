@@ -3,15 +3,15 @@ import ICoordinate, {IRealCoordinate} from '../ICoordinate'
 import {ICell} from '../cell'
 import {ICellFactory} from '../cellFactory'
 
-export default interface IWorld<T extends ICellFactory<T>> {
+export default interface IWorld<FactoryType extends ICellFactory<FactoryType,CellType>, CellType extends ICell<FactoryType,CellType>> {
   readonly size: number
-  readonly cellFactory: T
-  positionOf: (cell: ICell<T>) => IRealPoint
-  boundaryPolicy: (cell: ICoordinate) => ICell<T>
+  readonly cellFactory: FactoryType
+  positionOf: (cell: CellType) => IRealPoint
+  boundaryPolicy: (cell: ICoordinate) => CellType
   isValueOutOfBound: (position: number) => boolean
   isOutOfBound: (point: IRealCoordinate) => boolean
-  at: (point: IRealCoordinate) => ICell<T>
+  at: (point: IRealCoordinate) => CellType
   nextGeneration: () => void
-  exportGrid: () => ICell<T>[][] //replace with string
-  settleCell: (cell: ICell<T>, position: IRealCoordinate) => void
+  exportGrid: () => CellType[][] //replace with string
+  settleCell: (cell: CellType, position: IRealCoordinate) => void
 }

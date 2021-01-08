@@ -1,21 +1,7 @@
 import ICellStyler from './ICellStyler'
-import {Cell, DeadCell, ICell} from '../cell'
+import {ICell} from '../cell'
 import {IWorld} from '../world'
 import {ICellFactory} from '../cellFactory'
-
-function rgb(r: number,g:number,b:number): string {
-  return `rgb(${r},${g},${b})`
-}
-
-const DEFAULT_MAP: ListOfCellColors = (function () {
-  const cell = new Cell()
-  const deadCell = new DeadCell()
-
-  return [
-    [deadCell.constructor.name, rgb(255,255,255)],
-    [cell.constructor.name, rgb(0,0,0)]
-  ] as ListOfCellColors
-})()
 
 type CellName = string
 type Color = string
@@ -24,38 +10,34 @@ type ListOfCellColors = CellColorPair[]
 
 export type CellStylerMap = Map<CellName, Color>
 
-export default class CellStyler<T extends ICellFactory<T>> implements ICellStyler<T> {
+export default class CellStyler<FactoryType extends ICellFactory<FactoryType, CellType>, CellType extends ICell<FactoryType,CellType>> implements ICellStyler<FactoryType, CellType> {
   private map: CellStylerMap
 
-  static fromObject(map: Record<CellName, Color>) {
+  static fromObject<FactoryType extends ICellFactory<FactoryType,CellType>,  CellType extends ICell<FactoryType,CellType>>(map: Record<CellName, Color>) {
     const rawMap = []
     for (let [key, val] of Object.entries(map)) {
-      if (typeof key === 'string' && val === 'string') {
-        rawMap.push([key, val] as readonly[string,string])
+      if (typeof key === 'string' && typeof val === 'string') {
+        rawMap.push([key, val] as CellColorPair)
       }
     }
-    return new Map(rawMap)
+    return new CellStyler<FactoryType,CellType>(rawMap)
   }
 
-  static fromArray(map: ListOfCellColors) {
+  static fromArray<FactoryType extends ICellFactory<FactoryType,CellType>,  CellType extends ICell<FactoryType,CellType>>(map: ListOfCellColors) {
     // default case
-    return new CellStyler(map)
+    return new CellStyler<FactoryType, CellType>(map)
   }
 
-  static defaultStyler() {
-    return new CellStyler()
-  }
-
-  constructor(map: ListOfCellColors = DEFAULT_MAP) {
+  constructor(map: ListOfCellColors) {
     // Expect to have a valid argument to create a map
     this.map = new Map(map)
   }
 
-  _getKeyFromInstance(instance: ICell<T>) {
+  _getKeyFromInstance(instance: CellType) {
     return instance.className
   }
 
-  getStyleFor(cellInstance: ICell<T>) {
+  getStyleFor(cellInstance: CellType) {
     const key = this._getKeyFromInstance(cellInstance)
     const cell = this.map.get(key)
     if (cell) {
@@ -64,7 +46,7 @@ export default class CellStyler<T extends ICellFactory<T>> implements ICellStyle
     throw new ReferenceError(`No style defined for ${cellInstance}`)
   }
 
-  exportStyledGridFromWorld(world: IWorld<T>): string[][] {
+  exportStyledGridFromWorld(world: IWorld<FactoryType, CellType>): string[][] {
     const grid = world.exportGrid()
     // Suppose grid is a fair square array
     const gridSize = grid.length

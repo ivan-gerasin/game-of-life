@@ -1,10 +1,12 @@
-// import {World, IWorld} from '../world'
-// import {Point} from '../point'
-// import ICell from './ICell'
-// import Cell from '../../lib/cells/classic/Cell'
-// import {IClassicCellFactory, ClassicCellFactory} from '../cellFactory'
-// import SymbolToCellMapper, {RawPresetMap} from '../symbolToCellMapper/SymbolToCellMapper'
-// import {DeadCell} from './index'
+// import {World, IWorld} from '../../../core/world'
+// import {Point} from '../../../core/point'
+// import {ICell} from '../../../core/cell'
+//
+// import Cell from './Cell'
+// import IClassicCellFactory from './IClassicCellFactory'
+// import ClassicCellFactory from './ClassicCellFactory'
+// import DeadCell from './DeadCell'
+// import SymbolToCellMapper, {RawPresetMap} from '../../../core/symbolToCellMapper/SymbolToCellMapper'
 //
 // const DEFAULT_PRESET_MAP: RawPresetMap<IClassicCellFactory> = {
 //   '#': Cell,
@@ -32,64 +34,6 @@
 //       positionOf: jest.fn(() => cellPosition)
 //     }
 //     cell = new Cell(worldMock)
-//   })
-//
-//   test('created with provided world attached', () => {
-//     const c = new Cell(worldMock)
-//     expect(c.world).toBe(worldMock)
-//   })
-//
-//   test('if no world provided, will throw an error when trying to access to the world', () => {
-//     const c = new Cell()
-//     expect(() => {
-//       c.world
-//     }).toThrowError('Cell is not attached to the world')
-//   })
-//
-//   test('position will call to world method positionOf', () => {
-//     const c = new Cell(worldMock)
-//     expect(c.position).toBeInstanceOf(Point)
-//     expect(worldMock.positionOf).toBeCalledWith(c)
-//   })
-//
-//   describe('positions of neighbours', () => {
-//
-//     test('atTop', () => {
-//       cell.atTop()
-//       expect(worldMock.at).toBeCalledWith(new Point(cellPosition.x,cellPosition.y-1))
-//     })
-//
-//     test('atBottom', () => {
-//       cell.atBottom()
-//       expect(worldMock.at).toBeCalledWith(new Point(cellPosition.x,cellPosition.y+1))
-//     })
-//
-//     test('atLeft', () => {
-//       cell.atLeft()
-//       expect(worldMock.at).toBeCalledWith(new Point(cellPosition.x-1,cellPosition.y))
-//     })
-//
-//     test('atRight', () => {
-//       cell.atRight()
-//       expect(worldMock.at).toBeCalledWith(new Point(cellPosition.x+1,cellPosition.y))
-//     })
-//
-//     test('atTopRight', () => {
-//       cell.atTopRight()
-//       expect(worldMock.at).toBeCalledWith(new Point(cellPosition.x+1,cellPosition.y-1))
-//     })
-//     test('atTopLeft', () => {
-//       cell.atTopLeft()
-//       expect(worldMock.at).toBeCalledWith(new Point(cellPosition.x-1,cellPosition.y-1))
-//     })
-//     test('atBottomLeft', () => {
-//       cell.atBottomLeft()
-//       expect(worldMock.at).toBeCalledWith(new Point(cellPosition.x-1,cellPosition.y+1))
-//     })
-//     test('atBottomRight', () => {
-//       cell.atBottomRight()
-//       expect(worldMock.at).toBeCalledWith(new Point(cellPosition.x+1,cellPosition.y+1))
-//     })
 //   })
 //
 //   describe('nextGeneration of Cell', () => {

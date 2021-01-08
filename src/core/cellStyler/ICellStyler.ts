@@ -2,7 +2,7 @@ import {ICell} from '../cell'
 import {IWorld} from '../world'
 import {ICellFactory} from '../cellFactory'
 
-export default interface ICellStyler<T extends ICellFactory<T>> {
-  getStyleFor: (cellInstance: ICell<T>) => string
-  exportStyledGridFromWorld: (world: IWorld<T>) => string[][]
+export default interface ICellStyler<FactoryType extends ICellFactory<FactoryType, CellType>, CellType extends ICell<FactoryType,CellType>> {
+  getStyleFor: (cellInstance: CellType) => string
+  exportStyledGridFromWorld: (world: IWorld<FactoryType, CellType>) => string[][]
 }
