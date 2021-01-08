@@ -1,8 +1,8 @@
 import ICell from './ICell'
-import {Nullable} from '../../types'
-import {IWorld} from '../world'
-import {IRealPoint} from '../point'
-import {ICellFactory} from '../cellFactory'
+import {IWorld} from 'core/world'
+import {IRealPoint} from 'core/point'
+import {ICellFactory} from 'core/cellFactory'
+import {Nullable} from 'types'
 
 export default abstract class AbstractCell<
   FactoryType extends ICellFactory<FactoryType, CellType>,

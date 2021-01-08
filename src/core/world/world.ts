@@ -1,9 +1,9 @@
-import {ICell} from '../cell'
-import {Point} from '../point'
-import {ISymbolToCellMapper} from '../symbolToCellMapper'
-import ICoordinate, {IRealCoordinate} from '../ICoordinate'
 import IWorld from './IWorld'
-import ICellFactory from '../cellFactory/ICellFactory'
+import {ICell} from 'core/cell'
+import {Point} from 'core/point'
+import {ISymbolToCellMapper} from 'core/symbolToCellMapper'
+import ICoordinate, {IRealCoordinate} from 'core/ICoordinate'
+import ICellFactory from 'core/cellFactory/ICellFactory'
 
 export type Preset = string[][] | string[]
 

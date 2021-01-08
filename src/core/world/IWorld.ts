@@ -1,7 +1,7 @@
-import {IRealPoint} from '../point'
-import ICoordinate, {IRealCoordinate} from '../ICoordinate'
-import {ICell} from '../cell'
-import {ICellFactory} from '../cellFactory'
+import {IRealPoint} from 'core/point'
+import ICoordinate, {IRealCoordinate} from 'core/ICoordinate'
+import {ICell} from 'core/cell'
+import {ICellFactory} from 'core/cellFactory'
 
 export default interface IWorld<FactoryType extends ICellFactory<FactoryType,CellType>, CellType extends ICell<FactoryType,CellType>> {
   readonly size: number

@@ -1,5 +1,5 @@
 import {Cell, DeadCell, IClassicCell, IClassicCellFactory} from './index'
-import {CellStyler, ICellStyler, rgb} from '../../../core/cellStyler'
+import {CellStyler, ICellStyler, rgb} from 'core/cellStyler'
 
 const blackWhiteStyleMap = {
   [Cell.name]: rgb(0,0,0),

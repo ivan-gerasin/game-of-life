@@ -1,4 +1,4 @@
-import {ICell} from '../../../core/cell'
+import {ICell} from 'core/cell'
 import ILivePlanetCellFactory from './ILivePlanetCellFactory'
 import LiveCellType from './LiveCellType'
 

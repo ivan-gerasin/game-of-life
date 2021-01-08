@@ -1,5 +1,5 @@
 import {EmptyCell, Plant, Water, ILivePlanetCell, ILivePlanetCellFactory} from './index'
-import {SymbolToCellMapper} from '../../../core/symbolToCellMapper'
+import {SymbolToCellMapper} from 'core/symbolToCellMapper'
 import Predator from './Predator'
 import Herbivore from './Herbivore'
 

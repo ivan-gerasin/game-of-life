@@ -1,4 +1,4 @@
-import {NullableNumber} from '../types'
+import {NullableNumber} from 'types'
 
 // ICoordinate represent a *structure*
 // So it should not have any other props and methods

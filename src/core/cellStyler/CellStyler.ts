@@ -1,7 +1,7 @@
 import ICellStyler from './ICellStyler'
-import {ICell} from '../cell'
-import {IWorld} from '../world'
-import {ICellFactory} from '../cellFactory'
+import {ICell} from 'core/cell'
+import {IWorld} from 'core/world'
+import {ICellFactory} from 'core/cellFactory'
 
 type CellName = string
 type Color = string

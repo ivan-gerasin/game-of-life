@@ -1,6 +1,6 @@
 import ISymbolToCellMapper from './ISymbolToCellMapper'
-import {ICell, ICellConstructor} from '../cell'
-import {ICellFactory} from '../cellFactory'
+import {ICell, ICellConstructor} from 'core/cell'
+import {ICellFactory} from 'core/cellFactory'
 
 export type RawPresetMap<FactoryType extends ICellFactory<FactoryType,CellType>, CellType extends ICell<FactoryType,CellType>> = Record<string, ICellConstructor<FactoryType,CellType>>
 

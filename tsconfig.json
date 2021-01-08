@@ -1,5 +1,12 @@
 {
   "compilerOptions": {
+    "rootDir": "./src",
+    "baseUrl": "./src",
+    "paths": {
+      "~/*": [
+        "src/*"
+      ]
+    },
     "alwaysStrict": true,
     "noImplicitAny": true,
     "noImplicitThis": true,

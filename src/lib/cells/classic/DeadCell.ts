@@ -1,4 +1,4 @@
-import AbstractCell from '../../../core/cell/AbstractCell'
+import AbstractCell from 'core/cell/AbstractCell'
 import {IClassicCellFactory, IClassicCell} from './index'
 
 export default class DeadCell extends AbstractCell<IClassicCellFactory, IClassicCell> implements IClassicCell {

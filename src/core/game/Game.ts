@@ -1,12 +1,12 @@
-import {TimerId} from '../../types'
+import IGlobal from 'core/IGlobal'
+import {ICellStyler} from 'core/cellStyler'
+import {GridRenderer} from 'core/gridRenderer'
+import {ICellFactory} from 'core/cellFactory'
+import {ISymbolToCellMapper} from 'core/symbolToCellMapper'
+import {ICell} from 'core/cell'
+import {IWorld, Preset, World} from 'core/world'
 
-import {IWorld, Preset, World} from '../world'
-import IGlobal from '../IGlobal'
-import {ICellStyler} from '../cellStyler'
-import {GridRenderer} from '../gridRenderer'
-import {ICellFactory} from '../cellFactory'
-import {ISymbolToCellMapper} from '../symbolToCellMapper'
-import {ICell} from '../cell'
+import {TimerId} from 'types'
 
 export default class Game<FactoryType extends ICellFactory<FactoryType, CellType>, CellType extends ICell<FactoryType,CellType>> {
   private readonly world: IWorld<FactoryType, CellType>

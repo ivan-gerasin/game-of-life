@@ -1,6 +1,6 @@
 // cell factory probably will be uniq, so defined interface?
-import {ICell} from '../cell'
-import {IWorld} from '../world'
+import {ICell} from 'core/cell'
+import {IWorld} from 'core/world'
 
 export type FactoryMethod<
   FactoryType extends ICellFactory<FactoryType, CellType>,

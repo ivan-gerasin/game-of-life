@@ -1,5 +1,5 @@
-import Game from './src/core/game/Game'
-import {GridRenderer} from './src/core/gridRenderer'
+import Game from 'core/game/Game'
+import {GridRenderer} from 'core/gridRenderer'
 // import {
 //   ClassicCellFactory,
 //   IClassicCellFactory,
@@ -8,7 +8,7 @@ import {GridRenderer} from './src/core/gridRenderer'
 //   IClassicCell,
 // } from './src/lib/cells/classic'
 
-import * as LivePlanet from './src/lib/cells/livePlanet'
+import * as LivePlanet from 'lib/cells/livePlanet'
 
 function initContext() {
 

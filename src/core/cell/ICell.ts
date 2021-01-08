@@ -1,6 +1,6 @@
-import {IWorld} from '../world'
-import IPoint from '../point/IPoint'
-import {ICellFactory} from '../cellFactory'
+import {IWorld} from 'core/world'
+import {IPoint} from 'core/point'
+import {ICellFactory} from 'core/cellFactory'
 
 export default interface ICell<
   FactoryType extends ICellFactory<FactoryType,CellType>,

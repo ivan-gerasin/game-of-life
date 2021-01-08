@@ -1,4 +1,4 @@
-import AbstractCell from '../../../core/cell/AbstractCell'
+import AbstractCell from 'core/cell/AbstractCell'
 import {ILivePlanetCell, ILivePlanetCellFactory} from './index'
 import LiveCellType from './LiveCellType'
 

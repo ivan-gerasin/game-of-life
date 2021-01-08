@@ -1,5 +1,3 @@
-// Use "#" as alive cell and any other - as dead cell
-
 //Moving
 const glider = [
   '..#',

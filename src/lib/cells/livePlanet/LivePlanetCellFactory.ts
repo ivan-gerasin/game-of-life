@@ -1,7 +1,7 @@
 import {EmptyCell, Herbivore, ILivePlanetCell, ILivePlanetCellFactory, Plant, Predator, Water} from './index'
-import {Nullable} from '../../../types'
-import {IWorld} from '../../../core/world'
-import {ICellConstructor} from '../../../core/cell'
+import {Nullable} from 'types'
+import {IWorld} from 'core/world'
+import {ICellConstructor} from 'core/cell'
 
 type LivePlanetWorld = IWorld<ILivePlanetCellFactory, ILivePlanetCell>
 type LivePlanetCellConstructor = ICellConstructor<ILivePlanetCellFactory, ILivePlanetCell>
