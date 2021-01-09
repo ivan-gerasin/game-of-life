@@ -7,6 +7,7 @@
           "./src"
         ],
         "alias": {
+          "engine": "./src/engine",
           "core": "./src/core",
           "lib": "./src/lib"
         }

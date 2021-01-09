@@ -1,5 +1,5 @@
-import Game from 'core/game/Game'
-import {GridRenderer} from 'core/gridRenderer'
+import Game from 'engine/game/Game'
+import {GridRenderer} from 'engine/gridRenderer'
 // import {
 //   ClassicCellFactory,
 //   IClassicCellFactory,

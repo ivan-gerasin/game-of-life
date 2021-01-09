@@ -1,5 +1,5 @@
 import {Cell, DeadCell, IClassicCell, IClassicCellFactory} from './index'
-import {SymbolToCellMapper} from 'core/symbolToCellMapper'
+import {SymbolToCellMapper} from 'engine/symbolToCellMapper'
 
 const presetMap = {
   '#': Cell,

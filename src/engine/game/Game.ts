@@ -1,12 +1,13 @@
-import IGlobal from 'core/IGlobal'
+import IGlobal from 'engine/IGlobal'
 import {ICellStyler} from 'core/cellStyler'
-import {GridRenderer} from 'core/gridRenderer'
+import {GridRenderer} from 'engine/gridRenderer'
 import {ICellFactory} from 'core/cellFactory'
-import {ISymbolToCellMapper} from 'core/symbolToCellMapper'
+import {ISymbolToCellMapper} from 'engine/symbolToCellMapper'
 import {ICell} from 'core/cell'
 import {IWorld, Preset, World} from 'core/world'
 
 import {TimerId} from 'types'
+import CommonWorldFactory from '../worldFactory/CommonWorldFactory'
 
 export default class Game<FactoryType extends ICellFactory<FactoryType, CellType>, CellType extends ICell<FactoryType,CellType>> {
   private readonly world: IWorld<FactoryType, CellType>
@@ -30,7 +31,9 @@ export default class Game<FactoryType extends ICellFactory<FactoryType, CellType
     this.renderer = renderer
     this.global = globalObject
     this.styler = styler
-    this.world = World.buildWithPreset(cellFactory, preset, symbolToCellMapper, size)
+
+    const worldFactory = new CommonWorldFactory()
+    this.world = worldFactory.buildWithPreset(cellFactory, preset, symbolToCellMapper, size)
 
   }
 

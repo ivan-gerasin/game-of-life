@@ -1,9 +1,8 @@
 import IWorld from './IWorld'
 import {ICell} from 'core/cell'
 import {Point} from 'core/point'
-import {ISymbolToCellMapper} from 'core/symbolToCellMapper'
 import ICoordinate, {IRealCoordinate} from 'core/ICoordinate'
-import ICellFactory from 'core/cellFactory/ICellFactory'
+import {ICellFactory} from 'core/cellFactory'
 
 export type Preset = string[][] | string[]
 
@@ -26,26 +25,6 @@ export default class World<FactoryType extends ICellFactory<FactoryType,CellType
         this.setToGrid(x,y,emptyCell)
       }
     }
-  }
-
-  static buildWithPreset<FactoryType extends ICellFactory<FactoryType, CellType>, CellType extends ICell<FactoryType,CellType>>(cellFactory: FactoryType, preset: Preset, symbolToCellMapper: ISymbolToCellMapper<FactoryType, CellType>, size = World.DEFAULT_SIZE) {
-    const world = new World<FactoryType, CellType>(cellFactory, size)
-    for (let y = 0; y < size; y++) {
-      for (let x = 0; x < size; x++) {
-        const isSet = preset && preset[y] && preset[y][x]
-        if (!isSet) {
-          continue
-        }
-        const cellChar = preset[y][x]
-        const Cons = symbolToCellMapper.get(cellChar)
-        const position = Point.Point(x,y)
-        if (Cons.name !== world.at(position).className) {
-          const cell = new Cons(world)
-          world.settleCell(cell, position)
-        }
-      }
-    }
-    return world
   }
 
   get size() {
