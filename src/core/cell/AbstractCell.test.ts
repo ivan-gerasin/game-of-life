@@ -1,6 +1,6 @@
 import {IWorld} from 'core/world'
 import {ICell} from 'core/cell'
-import BaseCell, {IBaseCell, IBaseCellFactory} from './BaseCell'
+import {BaseCell, IBaseCell, IBaseCellFactory} from 'core/testsHelpers'
 import {Point} from '../point'
 
 describe('Cell', () => {
