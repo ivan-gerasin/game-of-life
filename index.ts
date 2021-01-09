@@ -1,7 +1,8 @@
 import Game from 'engine/game/Game'
 import {GridRenderer} from 'engine/gridRenderer'
-import * as LivePlanet from 'lib/cells/livePlanet'
-import BrowserSystemAdapter from './src/engine/systemAdapter/BrowserSystemAdapter'
+import BrowserSystemAdapter from 'engine/systemAdapter/BrowserSystemAdapter'
+
+import {ILivePlanetCellFactory, ILivePlanetCell, assembly} from 'lib/cells/livePlanet'
 
 function initContext() {
 
@@ -19,12 +20,12 @@ function initContext() {
     '........~...~....~......',
   ]
   const size = 50
-  const game = new Game<LivePlanet.ILivePlanetCellFactory, LivePlanet.ILivePlanetCell>(
+  const game = new Game<ILivePlanetCellFactory, ILivePlanetCell>(
     system,
     size,
     preset,
     createRenderer(),
-    LivePlanet.assembly
+    assembly
   )
 
   game.start()
