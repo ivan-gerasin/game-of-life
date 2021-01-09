@@ -3,17 +3,17 @@ import {ICellFactory} from 'core/cellFactory'
 import {ICell} from 'core/cell'
 import {IWorld, Preset} from 'core/world'
 
-import IGlobal from 'engine/IGlobal'
 import {GridRenderer} from 'engine/gridRenderer'
 import CommonWorldFactory from 'engine/worldFactory/CommonWorldFactory'
 import {IGameAssembly} from 'engine/gameAssembly'
 
 import {TimerId} from 'types'
+import {ISystemAdapter} from '../systemAdapter'
 
 export default class Game<F extends ICellFactory<F, C>, C extends ICell<F,C>> {
   private readonly world: IWorld<F, C>
   private renderer: GridRenderer
-  private global: IGlobal
+  private global: ISystemAdapter
   private timer: TimerId = null
   private styler: ICellStyler<F, C>
 
@@ -21,7 +21,7 @@ export default class Game<F extends ICellFactory<F, C>, C extends ICell<F,C>> {
   running = false
 
   constructor(
-    globalObject: IGlobal,
+    globalObject: ISystemAdapter,
     size: number,
     preset: Preset,
     renderer: GridRenderer,
@@ -40,7 +40,7 @@ export default class Game<F extends ICellFactory<F, C>, C extends ICell<F,C>> {
   start() {
     this.running = true
     this.timer = this.global.setInterval(() => {
-      this.global.requestAnimationFrame(() => {
+      this.global.requestFrame(() => {
         this.renderer.render(this.styler.exportStyledGridFromWorld(this.world))
         this.world.nextGeneration()
         console.log('tick')

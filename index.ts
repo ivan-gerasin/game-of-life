@@ -1,9 +1,11 @@
 import Game from 'engine/game/Game'
 import {GridRenderer} from 'engine/gridRenderer'
 import * as LivePlanet from 'lib/cells/livePlanet'
+import BrowserSystemAdapter from './src/engine/systemAdapter/BrowserSystemAdapter'
 
 function initContext() {
 
+  const system = new BrowserSystemAdapter(window)
   const preset = [
     '............~|..........',
     '............~|..........',
@@ -18,7 +20,7 @@ function initContext() {
   ]
   const size = 50
   const game = new Game<LivePlanet.ILivePlanetCellFactory, LivePlanet.ILivePlanetCell>(
-    window,
+    system,
     size,
     preset,
     createRenderer(),
