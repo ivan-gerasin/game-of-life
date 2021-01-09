@@ -1,4 +1,3 @@
-import {ICellStyler} from 'core/cellStyler'
 import {ICellFactory} from 'core/cellFactory'
 import {ICell} from 'core/cell'
 import {IWorld, Preset} from 'core/world'
@@ -6,6 +5,7 @@ import {IWorld, Preset} from 'core/world'
 import {GridRenderer} from 'engine/gridRenderer'
 import CommonWorldFactory from 'engine/worldFactory/CommonWorldFactory'
 import {IGameAssembly} from 'engine/gameAssembly'
+import {ICellStyler} from 'engine/cellStyler'
 
 import {TimerId} from 'types'
 import {ISystemAdapter} from '../systemAdapter'

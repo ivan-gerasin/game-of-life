@@ -1,5 +1,5 @@
 import {EmptyCell, Plant, ILivePlanetCell, ILivePlanetCellFactory, Water} from './index'
-import {CellStyler, ICellStyler, rgb} from 'core/cellStyler'
+import {CellStyler, ICellStyler, rgb} from 'engine/cellStyler'
 import Predator from './Predator'
 import Herbivore from './Herbivore'
 

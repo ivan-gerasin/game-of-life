@@ -1,5 +1,5 @@
 import {ICellFactory} from 'core/cellFactory'
-import {ICellStyler} from 'core/cellStyler'
+import {ICellStyler} from 'engine/cellStyler'
 import {ICell} from 'core/cell'
 import {ISymbolToCellMapper} from 'engine/symbolToCellMapper'
 
