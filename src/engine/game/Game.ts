@@ -1,20 +1,21 @@
-import IGlobal from 'engine/IGlobal'
 import {ICellStyler} from 'core/cellStyler'
-import {GridRenderer} from 'engine/gridRenderer'
 import {ICellFactory} from 'core/cellFactory'
-import {ISymbolToCellMapper} from 'engine/symbolToCellMapper'
 import {ICell} from 'core/cell'
-import {IWorld, Preset, World} from 'core/world'
+import {IWorld, Preset} from 'core/world'
+
+import IGlobal from 'engine/IGlobal'
+import {GridRenderer} from 'engine/gridRenderer'
+import CommonWorldFactory from 'engine/worldFactory/CommonWorldFactory'
+import {IGameAssembly} from 'engine/gameAssembly'
 
 import {TimerId} from 'types'
-import CommonWorldFactory from '../worldFactory/CommonWorldFactory'
 
-export default class Game<FactoryType extends ICellFactory<FactoryType, CellType>, CellType extends ICell<FactoryType,CellType>> {
-  private readonly world: IWorld<FactoryType, CellType>
+export default class Game<F extends ICellFactory<F, C>, C extends ICell<F,C>> {
+  private readonly world: IWorld<F, C>
   private renderer: GridRenderer
   private global: IGlobal
   private timer: TimerId = null
-  private styler: ICellStyler<FactoryType, CellType>
+  private styler: ICellStyler<F, C>
 
   interval = 100
   running = false
@@ -23,19 +24,18 @@ export default class Game<FactoryType extends ICellFactory<FactoryType, CellType
     globalObject: IGlobal,
     size: number,
     preset: Preset,
-    symbolToCellMapper: ISymbolToCellMapper<FactoryType, CellType>,
     renderer: GridRenderer,
-    styler: ICellStyler<FactoryType, CellType>,
-    cellFactory: FactoryType
+    gameAssembly: IGameAssembly<F,C>
   ) {
     this.renderer = renderer
     this.global = globalObject
-    this.styler = styler
+    this.styler = gameAssembly.styler
 
     const worldFactory = new CommonWorldFactory()
-    this.world = worldFactory.buildWithPreset(cellFactory, preset, symbolToCellMapper, size)
+    this.world = worldFactory.buildWithPreset<F,C>(<F>gameAssembly.cellFactory, preset, gameAssembly.symbolToCellMapper, size)
 
   }
+
 
   start() {
     this.running = true

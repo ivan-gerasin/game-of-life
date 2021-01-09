@@ -9,6 +9,7 @@ import styler from './styler'
 import LivePlanetCellFactory from './LivePlanetCellFactory'
 import Herbivore from './Herbivore'
 import Predator from './Predator'
+import assembly from './LivePlanetGameAssembly'
 
 export {
   ILivePlanetCellFactory,
@@ -22,4 +23,5 @@ export {
   Predator,
   presetMapper,
   styler,
+  assembly
 }

@@ -1,20 +1,8 @@
 import Game from 'engine/game/Game'
 import {GridRenderer} from 'engine/gridRenderer'
-// import {
-//   ClassicCellFactory,
-//   IClassicCellFactory,
-//   blackWhiteStyler,
-//   presetMapper,
-//   IClassicCell,
-// } from './src/lib/cells/classic'
-
 import * as LivePlanet from 'lib/cells/livePlanet'
 
 function initContext() {
-
-  //const styler = blackWhiteStyler
-  //const factory = new ClassicCellFactory()
-  // const game = new Game<IClassicCellFactory, IClassicCell>(window, 50, presets.pulsar, presetMapper, createRenderer(), styler, factory)
 
   const preset = [
     '............~|..........',
@@ -28,13 +16,13 @@ function initContext() {
     '.........~..~...~.......',
     '........~...~....~......',
   ]
-
-  const styler = LivePlanet.styler
-  const factory = new LivePlanet.LivePlanetCellFactory()
+  const size = 50
   const game = new Game<LivePlanet.ILivePlanetCellFactory, LivePlanet.ILivePlanetCell>(
-    window, 50, preset,
-    LivePlanet.presetMapper,
-    createRenderer(), styler, factory
+    window,
+    size,
+    preset,
+    createRenderer(),
+    LivePlanet.assembly
   )
 
   game.start()

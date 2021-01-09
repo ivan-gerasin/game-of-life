@@ -5,5 +5,5 @@ import ClassicCellFactory from './ClassicCellFactory'
 import blackWhiteStyler from './blackWhiteCellStyler'
 import presetMapper from './presetMapper'
 import IClassicCell from './IClassicCell'
-
-export {Cell, ClassicCellFactory, IClassicCellFactory, DeadCell, blackWhiteStyler, presetMapper, IClassicCell}
+import assembly from './ClassicConveysLifeGameAssembly'
+export {Cell, ClassicCellFactory, IClassicCellFactory, DeadCell, blackWhiteStyler, presetMapper, IClassicCell, assembly}
