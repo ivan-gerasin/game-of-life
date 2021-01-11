@@ -7,7 +7,7 @@ import CommonWorldFactory from 'engine/worldFactory/CommonWorldFactory'
 import {IGameAssembly} from 'engine/gameAssembly'
 import {ICellStyler} from 'engine/cellStyler'
 
-import {TimerId} from 'types'
+import {TimerId} from 'types/types'
 import {ISystemAdapter} from '../systemAdapter'
 
 export default class Game<F extends ICellFactory<F, C>, C extends ICell<F,C>> {

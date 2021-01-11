@@ -1,5 +1,5 @@
 import {EmptyCell, Herbivore, ILivePlanetCell, ILivePlanetCellFactory, Plant, Predator, Water} from './index'
-import {Nullable} from 'types'
+import {Nullable} from 'types/types'
 import {IWorld} from 'core/world'
 import {ICellConstructor} from 'core/cell'
 

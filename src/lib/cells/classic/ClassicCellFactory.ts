@@ -1,6 +1,6 @@
 import {IWorld} from '../../../core/world'
 import {ICellConstructor} from '../../../core/cell'
-import {Nullable} from '../../../types'
+import {Nullable} from '../../../types/types'
 import {IClassicCellFactory, DeadCell, Cell} from './index'
 import IClassicCell from './IClassicCell'
 

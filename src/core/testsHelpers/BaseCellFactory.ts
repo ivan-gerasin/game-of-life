@@ -5,7 +5,7 @@ import BaseCell from './BaseCell'
 
 import {IWorld} from 'core/world'
 import {ICellConstructor} from 'core/cell'
-import {Nullable} from 'types'
+import {Nullable} from 'types/types'
 
 type BaseWorld = IWorld<IBaseCellFactory, IBaseCell>
 type BaseCellConstructor = ICellConstructor<IBaseCellFactory, IBaseCell>
