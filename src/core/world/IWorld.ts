@@ -1,5 +1,5 @@
 import {IRealPoint} from 'core/point'
-import ICoordinate, {IRealCoordinate} from 'core/ICoordinate'
+import {ICoordinate, IRealCoordinate} from 'types/ICoordinate'
 import {ICell} from 'core/cell'
 import {ICellFactory} from 'core/cellFactory'
 

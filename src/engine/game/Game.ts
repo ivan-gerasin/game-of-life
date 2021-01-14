@@ -17,7 +17,7 @@ export default class Game<F extends ICellFactory<F, C>, C extends ICell<F,C>> {
   private timer: TimerId = null
   private styler: ICellStyler<F, C>
 
-  interval = 100
+  interval = 2000
   running = false
 
   constructor(
@@ -43,7 +43,7 @@ export default class Game<F extends ICellFactory<F, C>, C extends ICell<F,C>> {
       this.global.requestFrame(() => {
         this.renderer.render(this.styler.exportStyledGridFromWorld(this.world))
         this.world.nextGeneration()
-        console.log('tick')
+        // console.log('tick')
       })
     }, this.interval)
   }

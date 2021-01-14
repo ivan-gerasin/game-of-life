@@ -1,5 +1,4 @@
-import ICoordinate from 'core/ICoordinate'
-import {NullableNumber} from 'types/types'
+import {ICoordinate, NullableNumber} from 'types'
 
 export default interface IPoint extends ICoordinate {
   readonly isEmpty: boolean

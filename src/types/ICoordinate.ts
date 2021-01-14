@@ -3,7 +3,7 @@ import {NullableNumber} from 'types/types'
 // ICoordinate represent a *structure*
 // So it should not have any other props and methods
 
-export default interface ICoordinate {
+export interface ICoordinate {
   readonly x: NullableNumber
   readonly y: NullableNumber
 }

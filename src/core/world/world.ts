@@ -1,7 +1,7 @@
 import IWorld from './IWorld'
 import {ICell} from 'core/cell'
 import {Point} from 'core/point'
-import ICoordinate, {IRealCoordinate} from 'core/ICoordinate'
+import {ICoordinate, IRealCoordinate} from 'types/ICoordinate'
 import {ICellFactory} from 'core/cellFactory'
 
 export type Preset = string[][] | string[]

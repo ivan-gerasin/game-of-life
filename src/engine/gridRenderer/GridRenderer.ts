@@ -67,4 +67,13 @@ export default class GridRenderer implements IGridRenderer{
       }
     }
   }
+
+  resolveCanvasCoordinateToPosition(x:number, y:number) {
+    return {x,y}
+  }
+
+  clickHandler = (x:number, y:number) => {
+    const pos = this.resolveCanvasCoordinateToPosition(x,y)
+    this.putDot(pos.x, pos.y, 'rgb(255,50,100)')
+  }
 }
