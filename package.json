@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "typecheck": "tsc --noEmit --watch",
+    "server": "parcel index.html"
   },
   "author": "",
   "license": "ISC",

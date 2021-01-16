@@ -2,7 +2,7 @@ import {ICellFactory} from 'core/cellFactory'
 import {ICell} from 'core/cell'
 import {IWorld, Preset} from 'core/world'
 
-import {GridRenderer} from 'engine/gridRenderer'
+import {GridRenderer} from 'renderEngine/gridRenderer'
 import CommonWorldFactory from 'engine/worldFactory/CommonWorldFactory'
 import {IGameAssembly} from 'engine/gameAssembly'
 import {ICellStyler} from 'engine/cellStyler'

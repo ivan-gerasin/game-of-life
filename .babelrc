@@ -9,7 +9,8 @@
         "alias": {
           "engine": "./src/engine",
           "core": "./src/core",
-          "lib": "./src/lib"
+          "lib": "./src/lib",
+          "renderEngine": "./src/renderEngine"
         }
       }
     ]

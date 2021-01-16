@@ -1,5 +1,5 @@
 import Game from 'engine/game/Game'
-import {GridRenderer} from 'engine/gridRenderer'
+import {GridRenderer} from 'renderEngine/gridRenderer'
 import BrowserSystemAdapter from 'engine/systemAdapter/BrowserSystemAdapter'
 
 import {ILivePlanetCellFactory, ILivePlanetCell, assembly} from 'lib/cells/livePlanet'
