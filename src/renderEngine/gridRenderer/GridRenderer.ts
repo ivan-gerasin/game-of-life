@@ -1,14 +1,15 @@
 import IGridRenderer from './IGridRenderer'
+import {ColoredGrid} from '../../types'
+import IRequestFrame from './IRequestFrame'
 
 export default class GridRenderer implements IGridRenderer{
-  private readonly context: CanvasRenderingContext2D
-  private readonly scaleFactor: number = 1
-  private readonly gridWidth = 1
-  private readonly size = 50
-
-  constructor(context: CanvasRenderingContext2D, scaleFactor = 1) {
-    this.context = context
-    this.scaleFactor = scaleFactor
+  constructor(
+    private readonly context: CanvasRenderingContext2D,
+    private readonly canvasRequestFrameAdapted: IRequestFrame,
+    private readonly scaleFactor = 1,
+    private readonly gridWidth = 1,
+    private readonly size = 50
+  ) {
     this.drawGrid()
   }
 
@@ -57,15 +58,17 @@ export default class GridRenderer implements IGridRenderer{
     }
   }
 
-  render(styledGrid: string[][]) {
+  render(styledGrid: ColoredGrid) {
     // Suppose grid is a fair square array
-    const gridSize = styledGrid.length
-    for (let y = 0; y < gridSize; y++) {
-      for (let x = 0; x < gridSize; x++) {
-        const color = styledGrid[y][x]
-        this.putDot(x,y,color)
+    this.canvasRequestFrameAdapted.requestAnimationFrame(() => {
+      const gridSize = styledGrid.length
+      for (let y = 0; y < gridSize; y++) {
+        for (let x = 0; x < gridSize; x++) {
+          const color = styledGrid[y][x]
+          this.putDot(x,y,color)
+        }
       }
-    }
+    })
   }
 
   resolveCanvasCoordinateToPosition(x:number, y:number) {

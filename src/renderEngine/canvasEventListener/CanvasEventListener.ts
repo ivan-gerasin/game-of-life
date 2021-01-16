@@ -1,6 +1,6 @@
-export type CanvasClickHandler = (x: number, y: number) => void
+import ICanvasEventListener, {CanvasClickHandler} from './ICanvasEventListener'
 
-export default class CanvasEventListener {
+export default class CanvasEventListener implements ICanvasEventListener {
   constructor(private readonly canvasElement: HTMLCanvasElement, private handlers: CanvasClickHandler[] = []) {
     if (handlers.length) {
       this.addEventListener()
@@ -13,6 +13,11 @@ export default class CanvasEventListener {
 
   private removeEventListener() {
     this.canvasElement.removeEventListener('click', this.listener.bind(this))
+  }
+
+  private listener(event: MouseEvent) {
+    const {offsetX: x, offsetY: y} = event
+    this.handlers.forEach(handler => handler(x,y))
   }
 
   attachHandler(handler: CanvasClickHandler) {
@@ -33,11 +38,6 @@ export default class CanvasEventListener {
     if (this.handlers.length === 0) {
       this.removeEventListener()
     }
-  }
-
-  listener(event: MouseEvent) {
-    const {offsetX: x, offsetY: y} = event
-    this.handlers.forEach(handler => handler(x,y))
   }
 
 }

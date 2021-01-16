@@ -1,59 +1,40 @@
 import {ICellFactory} from 'core/cellFactory'
 import {ICell} from 'core/cell'
-import {IWorld, Preset} from 'core/world'
-
-import {GridRenderer} from 'renderEngine/gridRenderer'
-import CommonWorldFactory from 'engine/worldFactory/CommonWorldFactory'
-import {IGameAssembly} from 'engine/gameAssembly'
+import {IWorld} from 'core/world'
 import {ICellStyler} from 'engine/cellStyler'
 
 import {TimerId} from 'types/types'
 import {ISystemAdapter} from '../systemAdapter'
+import IColoredGridConsumer from './IColoredGridConsumer'
 
 export default class Game<F extends ICellFactory<F, C>, C extends ICell<F,C>> {
-  private readonly world: IWorld<F, C>
-  private renderer: GridRenderer
-  private global: ISystemAdapter
-  private timer: TimerId = null
-  private styler: ICellStyler<F, C>
-
-  interval = 2000
+  private timerId: TimerId = null
+  interval = 1000
   running = false
 
   constructor(
-    globalObject: ISystemAdapter,
-    size: number,
-    preset: Preset,
-    renderer: GridRenderer,
-    gameAssembly: IGameAssembly<F,C>
+    private readonly global: ISystemAdapter,
+    private readonly gridConsumer: IColoredGridConsumer,
+    private readonly world: IWorld<F,C>,
+    private readonly styler: ICellStyler<F, C>
   ) {
-    this.renderer = renderer
-    this.global = globalObject
-    this.styler = gameAssembly.styler
-
-    const worldFactory = new CommonWorldFactory()
-    this.world = worldFactory.buildWithPreset<F,C>(<F>gameAssembly.cellFactory, preset, gameAssembly.symbolToCellMapper, size)
-
   }
 
 
   start() {
     this.running = true
-    this.timer = this.global.setInterval(() => {
-      this.global.requestFrame(() => {
-        const styledGrid = this.styler.exportStyledGridFromWorld(this.world)
-        this.renderer.render(styledGrid)
-        this.world.nextGeneration()
-        // console.log('tick')
-      })
+    this.timerId = this.global.setInterval(() => {
+      const styledGrid = this.styler.exportStyledGridFromWorld(this.world)
+      this.gridConsumer.consume(styledGrid)
+      this.world.nextGeneration()
     }, this.interval)
   }
 
   stop() {
-    if (this.timer) {
+    if (this.timerId) {
       this.running = false
-      this.global.clearInterval(this.timer)
-      this.timer = null
+      this.global.clearInterval(this.timerId)
+      this.timerId = null
     }
   }
 
