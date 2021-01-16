@@ -41,7 +41,8 @@ export default class Game<F extends ICellFactory<F, C>, C extends ICell<F,C>> {
     this.running = true
     this.timer = this.global.setInterval(() => {
       this.global.requestFrame(() => {
-        this.renderer.render(this.styler.exportStyledGridFromWorld(this.world))
+        const styledGrid = this.styler.exportStyledGridFromWorld(this.world)
+        this.renderer.render(styledGrid)
         this.world.nextGeneration()
         // console.log('tick')
       })
