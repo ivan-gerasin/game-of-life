@@ -6,9 +6,7 @@ import {ICellFactory} from '../core/cellFactory'
 import {ICell} from '../core/cell'
 import {IGameAssembly} from '../engine/gameAssembly'
 import CommonWorldFactory from '../engine/worldFactory/CommonWorldFactory'
-import {ICellStyler} from '../engine/cellStyler'
 import {Game, IColoredGridConsumer} from '../engine/game'
-import BrowserSystemAdapter from '../engine/systemAdapter/BrowserSystemAdapter'
 import {ColoredGrid, IntervalTimer} from '../types'
 
 export default class ApplicationController<F extends ICellFactory<F,C>, C extends ICell<F,C>> implements IColoredGridConsumer{
