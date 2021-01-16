@@ -25,7 +25,7 @@ export default class ApplicationController<F extends ICellFactory<F,C>, C extend
     
     const canvasProps: ICanvasDriverProperties = {
       size: 50,
-      scaleFactor: 5,
+      scaleFactor: 10,
       gridLineWidth: 1,
       canvasNode: this.getCanvas()
     }
