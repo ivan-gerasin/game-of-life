@@ -9,7 +9,7 @@ import CommonWorldFactory from '../engine/worldFactory/CommonWorldFactory'
 import {ICellStyler} from '../engine/cellStyler'
 import {Game, IColoredGridConsumer} from '../engine/game'
 import BrowserSystemAdapter from '../engine/systemAdapter/BrowserSystemAdapter'
-import {ColoredGrid} from '../types'
+import {ColoredGrid, IntervalTimer} from '../types'
 
 export default class ApplicationController<F extends ICellFactory<F,C>, C extends ICell<F,C>> implements IColoredGridConsumer{
   
@@ -36,8 +36,8 @@ export default class ApplicationController<F extends ICellFactory<F,C>, C extend
     const worldFactory = new CommonWorldFactory()
     this.world = worldFactory.buildWithPreset<F,C>(<F>gameAssembly.cellFactory, preset, gameAssembly.symbolToCellMapper, size)
 
-    const system = new BrowserSystemAdapter(window)
-    this.game = new Game(system, this, this.world, gameAssembly.styler)
+    const timer = new IntervalTimer()
+    this.game = new Game(timer, this, this.world, gameAssembly.styler)
     this.game.start()
   }
 
