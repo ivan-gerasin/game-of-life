@@ -14,7 +14,8 @@
   },
   "scripts": {
     "test": "jest",
-    "typecheck": "tsc --noEmit --watch",
+    "typecheck:watch": "tsc --noEmit --watch",
+    "typecheck": "tsc --noEmit",
     "server": "parcel index.html",
     "lint": "eslint src/*"
   },

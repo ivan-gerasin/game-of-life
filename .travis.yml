@@ -1,0 +1,16 @@
+language: node_js
+node_js:
+  - 14
+install:
+  - npm i
+jobs:
+  include:
+    - stage: "Lint"
+      name: "Run ESLint"
+      script: npm run lint
+    - stage: "Type check"
+      name: "Compile typescript"
+      script: npm run typecheck
+    - stage: "Test"
+      name: "Run unit-tests"
+      script: npm run test
