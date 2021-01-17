@@ -1,10 +1,21 @@
-import {EmptyCell, Herbivore, ILivePlanetCell, ILivePlanetCellFactory, Plant, Predator, Water} from './index'
+import {
+	EmptyCell,
+	Herbivore,
+	ILivePlanetCell,
+	ILivePlanetCellFactory,
+	Plant,
+	Predator,
+	Water
+} from './index'
 import {Nullable} from 'types/types'
 import {IWorld} from 'core/world'
 import {ICellConstructor} from 'core/cell'
 
 type LivePlanetWorld = IWorld<ILivePlanetCellFactory, ILivePlanetCell>
-type LivePlanetCellConstructor = ICellConstructor<ILivePlanetCellFactory, ILivePlanetCell>
+type LivePlanetCellConstructor = ICellConstructor<
+	ILivePlanetCellFactory,
+	ILivePlanetCell
+>
 
 export default class LivePlanetCellFactory implements ILivePlanetCellFactory {
 	private world: Nullable<LivePlanetWorld> = null
@@ -39,5 +50,4 @@ export default class LivePlanetCellFactory implements ILivePlanetCellFactory {
 	predator(): ILivePlanetCell {
 		return this.create(Predator)
 	}
-
 }

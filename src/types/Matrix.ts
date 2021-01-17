@@ -1,5 +1,4 @@
 interface IMatrix<T> {
-
 	at: (x: number, y: number) => T
 	// equal: (m: IMatrix<T>) => boolean
 

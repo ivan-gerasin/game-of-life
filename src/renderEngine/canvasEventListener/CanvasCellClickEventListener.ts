@@ -14,7 +14,7 @@ export default class CanvasCellClickEventListener extends CanvasPixelClickEventL
 	protected eventDispatcher = (event: MouseEvent): void => {
 		console.log('cell dispatcher')
 		const {offsetX: x, offsetY: y} = event
-		const cellPosition = this.scaler.resolvePixelToCell({x,y})
+		const cellPosition = this.scaler.resolvePixelToCell({x, y})
 		this.handlers.forEach(handler => handler(cellPosition))
 	}
 }

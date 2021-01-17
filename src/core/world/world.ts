@@ -6,7 +6,10 @@ import {ICellFactory} from 'core/cellFactory'
 
 export type Preset = string[][] | string[]
 
-export default class World<FactoryType extends ICellFactory<FactoryType,CellType>, CellType extends ICell<FactoryType,CellType>> implements IWorld<FactoryType,CellType> {
+export default class World<
+	FactoryType extends ICellFactory<FactoryType, CellType>,
+	CellType extends ICell<FactoryType, CellType>
+> implements IWorld<FactoryType, CellType> {
 	static DEFAULT_SIZE = 50
 	private _grid: CellType[][] = []
 	private _map = new WeakMap()
@@ -22,7 +25,7 @@ export default class World<FactoryType extends ICellFactory<FactoryType,CellType
 			this._grid[y] = []
 			for (let x = 0; x < size; x++) {
 				const emptyCell = this.cellFactory.empty()
-				this.setToGrid(x,y,emptyCell)
+				this.setToGrid(x, y, emptyCell)
 			}
 		}
 	}
@@ -35,11 +38,11 @@ export default class World<FactoryType extends ICellFactory<FactoryType,CellType
 		this._map = new WeakMap()
 	}
 
-	private atGrid(x: number, y :number): CellType {
+	private atGrid(x: number, y: number): CellType {
 		return this._grid[y][x]
 	}
 
-	private setToGrid(x: number, y:number, cell: CellType) {
+	private setToGrid(x: number, y: number, cell: CellType) {
 		this._grid[y][x] = cell
 	}
 
@@ -50,8 +53,8 @@ export default class World<FactoryType extends ICellFactory<FactoryType,CellType
 
 		for (let y = 0; y < this.size; y++) {
 			for (let x = 0; x < this.size; x++) {
-				const cellAtPosition = this.atGrid(x,y)
-				this._map.set(cell, Point.Point(x,y))
+				const cellAtPosition = this.atGrid(x, y)
+				this._map.set(cell, Point.Point(x, y))
 				if (cellAtPosition === cell) {
 					return this._map.get(cell)
 				}
@@ -66,7 +69,7 @@ export default class World<FactoryType extends ICellFactory<FactoryType,CellType
 		const isEmptyPoint = position.isEmpty
 		if (fromThisWorld && !isEmptyPoint) {
 			return <IRealPoint>position
-		} else if (!fromThisWorld && !isEmptyPoint){
+		} else if (!fromThisWorld && !isEmptyPoint) {
 			throw new Error('Cell does not belong to this world, but found')
 		} else if (!fromThisWorld && isEmptyPoint) {
 			throw new Error('Cell does not belong to this world')
@@ -84,7 +87,7 @@ export default class World<FactoryType extends ICellFactory<FactoryType,CellType
 		if (alreadySettled) {
 			throw new Error('This cell already settled')
 		}
-		this.setToGrid(x,y,cell)
+		this.setToGrid(x, y, cell)
 	}
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -97,14 +100,16 @@ export default class World<FactoryType extends ICellFactory<FactoryType,CellType
 	}
 
 	isOutOfBound(coordinate: IRealCoordinate): boolean {
-		const {x,y} = coordinate
+		const {x, y} = coordinate
 		return this.isValueOutOfBound(x) || this.isValueOutOfBound(y)
 	}
 
 	at(coordinate: IRealCoordinate): CellType {
-		const {x,y} = coordinate
-		if (this.isOutOfBound(coordinate)) { return this.boundaryPolicy(coordinate) }
-		return this.atGrid(x,y)
+		const {x, y} = coordinate
+		if (this.isOutOfBound(coordinate)) {
+			return this.boundaryPolicy(coordinate)
+		}
+		return this.atGrid(x, y)
 	}
 
 	nextGeneration(): void {
@@ -112,7 +117,7 @@ export default class World<FactoryType extends ICellFactory<FactoryType,CellType
 		for (let y = 0; y < this._size; y++) {
 			newGrid[y] = []
 			for (let x = 0; x < this._size; x++) {
-				const cell = this.atGrid(x,y)
+				const cell = this.atGrid(x, y)
 				newGrid[y][x] = cell.nextGeneration()
 			}
 		}
@@ -123,5 +128,4 @@ export default class World<FactoryType extends ICellFactory<FactoryType,CellType
 	exportGrid(): CellType[][] {
 		return this._grid
 	}
-
 }

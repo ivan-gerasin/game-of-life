@@ -4,16 +4,16 @@ import {NullableNumber} from 'types/types'
 // So it should not have any other props and methods
 
 export interface ICoordinate {
-  readonly x: NullableNumber
-  readonly y: NullableNumber
+	readonly x: NullableNumber
+	readonly y: NullableNumber
 }
 
-export interface IRealCoordinate extends ICoordinate{
-  readonly x: number
-  readonly y: number
+export interface IRealCoordinate extends ICoordinate {
+	readonly x: number
+	readonly y: number
 }
 
 export interface IEmptyCoordinate extends ICoordinate {
-  readonly x: null
-  readonly y: null
+	readonly x: null
+	readonly y: null
 }

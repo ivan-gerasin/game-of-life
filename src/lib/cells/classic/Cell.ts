@@ -2,8 +2,9 @@ import AbstractCell from 'core/cell/AbstractCell'
 import {IClassicCellFactory} from './index'
 import IClassicCell from './IClassicCell'
 
-
-export default class Cell extends AbstractCell<IClassicCellFactory, IClassicCell> implements IClassicCell {
+export default class Cell
+	extends AbstractCell<IClassicCellFactory, IClassicCell>
+	implements IClassicCell {
 	readonly isAlive = true
 	nextGeneration(this: Cell): IClassicCell {
 		const neighbors = this.getAllNeighborsList()

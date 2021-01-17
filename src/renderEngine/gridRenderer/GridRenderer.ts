@@ -3,7 +3,7 @@ import {ColoredGrid} from 'types'
 import IRequestFrame from './IRequestFrame'
 import {IScaler} from 'renderEngine/scaler'
 
-export default class GridRenderer implements IGridRenderer{
+export default class GridRenderer implements IGridRenderer {
 	constructor(
 		private readonly context: CanvasRenderingContext2D,
 		private readonly canvasRequestFrameAdapted: IRequestFrame,
@@ -26,7 +26,7 @@ export default class GridRenderer implements IGridRenderer{
 		this.context.fillStyle = color
 		const scaledX = this.scalePositionOfCell(x)
 		const scaledY = this.scalePositionOfCell(y)
-		this.context.fillRect(scaledX,scaledY,dotSize,dotSize)
+		this.context.fillRect(scaledX, scaledY, dotSize, dotSize)
 	}
 
 	drawGrid(): void {
@@ -61,7 +61,7 @@ export default class GridRenderer implements IGridRenderer{
 			for (let y = 0; y < gridSize; y++) {
 				for (let x = 0; x < gridSize; x++) {
 					const color = styledGrid[y][x]
-					this.putDot(x,y,color)
+					this.putDot(x, y, color)
 				}
 			}
 		})

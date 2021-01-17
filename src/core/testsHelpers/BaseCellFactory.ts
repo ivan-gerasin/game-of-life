@@ -15,9 +15,11 @@ export default class ClassicCellFactory implements IBaseCellFactory {
 
 	private create(Cons: BaseCellConstructor): IBaseCell {
 		if (this.world) {
-			return  new Cons(this.world)
+			return new Cons(this.world)
 		}
-		throw new ReferenceError('ClassicCellFactory does not attached to the world')
+		throw new ReferenceError(
+			'ClassicCellFactory does not attached to the world'
+		)
 	}
 
 	attachWorld(world: BaseWorld): void {

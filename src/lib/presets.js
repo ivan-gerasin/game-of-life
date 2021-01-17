@@ -1,46 +1,17 @@
 //Moving
-const glider = [
-	'..#',
-	'...#',
-	'.###'
-]
+const glider = ['..#', '...#', '.###']
 
 //Stable
-const snake = [
-	'.....',
-	'.#.##',
-	'.##.#',
-	'.....',
-]
+const snake = ['.....', '.#.##', '.##.#', '.....']
 
 //Stable
-const boat = [
-	'.....',
-	'..#..',
-	'.#.#.',
-	'..##.',
-	'.....'
-]
+const boat = ['.....', '..#..', '.#.#.', '..##.', '.....']
 
-const beacon = [
-	'##..',
-	'##..',
-	'..##',
-	'..##'
-]
+const beacon = ['##..', '##..', '..##', '..##']
 
-const toad = [
-	'....',
-	'.###',
-	'###.',
-	'....'
-]
+const toad = ['....', '.###', '###.', '....']
 
-const blinker = [
-	'...',
-	'###',
-	'...'
-]
+const blinker = ['...', '###', '...']
 
 const pulsar = [
 	'...............',
@@ -61,6 +32,11 @@ const pulsar = [
 ]
 
 module.exports = {
-	glider, snake,
-	boat,beacon, toad, blinker, pulsar
+	glider,
+	snake,
+	boat,
+	beacon,
+	toad,
+	blinker,
+	pulsar
 }

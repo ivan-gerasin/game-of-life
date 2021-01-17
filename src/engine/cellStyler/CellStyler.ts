@@ -10,20 +10,29 @@ type ListOfCellColors = CellColorPair[]
 
 export type CellStylerMap = Map<CellName, Color>
 
-export default class CellStyler<FactoryType extends ICellFactory<FactoryType, CellType>, CellType extends ICell<FactoryType,CellType>> implements ICellStyler<FactoryType, CellType> {
+export default class CellStyler<
+	FactoryType extends ICellFactory<FactoryType, CellType>,
+	CellType extends ICell<FactoryType, CellType>
+> implements ICellStyler<FactoryType, CellType> {
 	private map: CellStylerMap
 
-	static fromObject<FactoryType extends ICellFactory<FactoryType,CellType>,  CellType extends ICell<FactoryType,CellType>>(map: Record<CellName, Color>): CellStyler<FactoryType, CellType> {
+	static fromObject<
+		FactoryType extends ICellFactory<FactoryType, CellType>,
+		CellType extends ICell<FactoryType, CellType>
+	>(map: Record<CellName, Color>): CellStyler<FactoryType, CellType> {
 		const rawMap = []
 		for (const [key, val] of Object.entries(map)) {
 			if (typeof key === 'string' && typeof val === 'string') {
 				rawMap.push([key, val] as CellColorPair)
 			}
 		}
-		return new CellStyler<FactoryType,CellType>(rawMap)
+		return new CellStyler<FactoryType, CellType>(rawMap)
 	}
 
-	static fromArray<FactoryType extends ICellFactory<FactoryType,CellType>,  CellType extends ICell<FactoryType,CellType>>(map: ListOfCellColors): CellStyler<FactoryType, CellType> {
+	static fromArray<
+		FactoryType extends ICellFactory<FactoryType, CellType>,
+		CellType extends ICell<FactoryType, CellType>
+	>(map: ListOfCellColors): CellStyler<FactoryType, CellType> {
 		// default case
 		return new CellStyler<FactoryType, CellType>(map)
 	}
@@ -46,7 +55,9 @@ export default class CellStyler<FactoryType extends ICellFactory<FactoryType, Ce
 		throw new ReferenceError(`No style defined for ${cellInstance}`)
 	}
 
-	exportStyledGridFromWorld(world: IWorld<FactoryType, CellType>): ColoredGrid {
+	exportStyledGridFromWorld(
+		world: IWorld<FactoryType, CellType>
+	): ColoredGrid {
 		const grid = world.exportGrid()
 		// Suppose grid is a fair square array
 		const gridSize = grid.length

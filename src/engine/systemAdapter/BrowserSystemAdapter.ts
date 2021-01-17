@@ -1,6 +1,6 @@
 import {ISystemAdapter} from './index'
 
-export default class BrowserSystemAdapter implements ISystemAdapter{
+export default class BrowserSystemAdapter implements ISystemAdapter {
 	constructor(private readonly window: Window) {}
 	requestFrame(callback: FrameRequestCallback): void {
 		this.window.requestAnimationFrame(callback)

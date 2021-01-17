@@ -1,7 +1,11 @@
 import ICanvasEventListener, {CanvasClickHandler} from './ICanvasEventListener'
 
-export default class CanvasPixelClickEventListener implements ICanvasEventListener {
-	constructor(private readonly canvasElement: HTMLCanvasElement, protected handlers: CanvasClickHandler[] = []) {
+export default class CanvasPixelClickEventListener
+	implements ICanvasEventListener {
+	constructor(
+		private readonly canvasElement: HTMLCanvasElement,
+		protected handlers: CanvasClickHandler[] = []
+	) {
 		if (handlers.length) {
 			this.addEventListener()
 		}
@@ -18,7 +22,7 @@ export default class CanvasPixelClickEventListener implements ICanvasEventListen
 	protected eventDispatcher = (event: MouseEvent): void => {
 		console.log('pixel dispatcher')
 		const {offsetX: x, offsetY: y} = event
-		this.handlers.forEach(handler => handler({x,y}))
+		this.handlers.forEach(handler => handler({x, y}))
 	}
 
 	attachHandler(handler: CanvasClickHandler): void {
@@ -35,10 +39,11 @@ export default class CanvasPixelClickEventListener implements ICanvasEventListen
 		if (!this.handlers.includes(handlerToDetach)) {
 			return
 		}
-		this.handlers = this.handlers.filter(handler => handlerToDetach !== handler)
+		this.handlers = this.handlers.filter(
+			handler => handlerToDetach !== handler
+		)
 		if (this.handlers.length === 0) {
 			this.removeEventListener()
 		}
 	}
-
 }

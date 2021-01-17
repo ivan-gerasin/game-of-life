@@ -11,12 +11,12 @@ export default class Point implements IPoint {
 		}
 	}
 
-	static Point(x:number, y:number): Point {
-		const strKey = Point._positionToStringKey(x,y)
+	static Point(x: number, y: number): Point {
+		const strKey = Point._positionToStringKey(x, y)
 		if (Point.__globalCache.has(strKey)) {
 			return Point.__globalCache.get(strKey)
 		}
-		const point = new Point(x,y)
+		const point = new Point(x, y)
 		Point.__globalCache.set(strKey, point)
 		return point
 	}

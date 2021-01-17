@@ -2,18 +2,24 @@ import ISymbolToCellMapper from './ISymbolToCellMapper'
 import {ICell, ICellConstructor} from 'core/cell'
 import {ICellFactory} from 'core/cellFactory'
 
-export type RawPresetMap<FactoryType extends ICellFactory<FactoryType,CellType>, CellType extends ICell<FactoryType,CellType>> = Record<string, ICellConstructor<FactoryType,CellType>>
+export type RawPresetMap<
+	FactoryType extends ICellFactory<FactoryType, CellType>,
+	CellType extends ICell<FactoryType, CellType>
+> = Record<string, ICellConstructor<FactoryType, CellType>>
 
-export default class SymbolToCellMapper<FactoryType extends ICellFactory<FactoryType, CellType>, CellType extends ICell<FactoryType,CellType>> implements ISymbolToCellMapper<FactoryType, CellType> {
-	private _map = new Map<string, ICellConstructor<FactoryType,CellType>>()
+export default class SymbolToCellMapper<
+	FactoryType extends ICellFactory<FactoryType, CellType>,
+	CellType extends ICell<FactoryType, CellType>
+> implements ISymbolToCellMapper<FactoryType, CellType> {
+	private _map = new Map<string, ICellConstructor<FactoryType, CellType>>()
 
 	constructor(map: RawPresetMap<FactoryType, CellType>) {
 		// Suppose it should be an object
-		for (const [k,v] of Object.entries(map)) {
+		for (const [k, v] of Object.entries(map)) {
 			if (!SymbolToCellMapper.isValidKey(k)) {
 				throw TypeError(SymbolToCellMapper.INVALID_KEY_ERR_MSG)
 			}
-			this._map.set(k,v)
+			this._map.set(k, v)
 		}
 	}
 
@@ -21,10 +27,10 @@ export default class SymbolToCellMapper<FactoryType extends ICellFactory<Factory
 	static INVALID_KEY_ERR_MSG = `Not valid key: it should be one char or "${SymbolToCellMapper.DEFAULT_KEY}"`
 
 	static isValidKey(key: string): boolean {
-		return (key.length === 1 || key === SymbolToCellMapper.DEFAULT_KEY)
+		return key.length === 1 || key === SymbolToCellMapper.DEFAULT_KEY
 	}
 
-	private _get(key: string): ICellConstructor<FactoryType,CellType> {
+	private _get(key: string): ICellConstructor<FactoryType, CellType> {
 		const cell = this._map.get(key)
 		if (cell) {
 			return cell
@@ -32,7 +38,7 @@ export default class SymbolToCellMapper<FactoryType extends ICellFactory<Factory
 		throw ReferenceError(`No such key ${key}`)
 	}
 
-	get(key: string): ICellConstructor<FactoryType,CellType> {
+	get(key: string): ICellConstructor<FactoryType, CellType> {
 		if (SymbolToCellMapper.isValidKey(key)) {
 			if (this._map.has(key)) {
 				return this._get(key)
@@ -41,5 +47,4 @@ export default class SymbolToCellMapper<FactoryType extends ICellFactory<Factory
 		}
 		throw TypeError(SymbolToCellMapper.INVALID_KEY_ERR_MSG)
 	}
-
 }

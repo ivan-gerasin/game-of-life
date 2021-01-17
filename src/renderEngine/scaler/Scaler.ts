@@ -4,14 +4,14 @@ import {ICoordinate, IRealCoordinate} from '../../types'
 export default class Scaler implements IScaler {
 	constructor(readonly scaleFactor: number, readonly gridLineWidth: number) {
 		this.halfPixelCorrectionRequired = this.isHalfPixelCorrectionRequired()
-		this.dotSize = this.scaleFactor+this.gridLineWidth
+		this.dotSize = this.scaleFactor + this.gridLineWidth
 	}
 
 	private readonly halfPixelCorrectionRequired: boolean
 	private readonly dotSize: number
 
 	private scale(pos: number) {
-		return pos*this.dotSize
+		return pos * this.dotSize
 	}
 
 	private isHalfPixelCorrectionRequired(): boolean {
@@ -102,7 +102,6 @@ export default class Scaler implements IScaler {
 
 	* */
 
-
 	scalePositionOfCell(pos: number): number {
 		return this.scale(pos) + this.gridLineWidth
 	}
@@ -111,14 +110,17 @@ export default class Scaler implements IScaler {
 		const scaled = this.scale(pos)
 		const HALF_PIXEL = 0.5
 		//https://stackoverflow.com/questions/7530593/html5-canvas-and-line-width/7531540#7531540
-		return this.halfPixelCorrectionRequired ? scaled+HALF_PIXEL : scaled
+		return this.halfPixelCorrectionRequired ? scaled + HALF_PIXEL : scaled
 	}
 
-	private evalPositionCharacteristic(scaledPosition: number): PositionCharacteristic {
-		const pixelOffset = scaledPosition%this.dotSize
-		const cellOffset = Math.floor(scaledPosition/this.dotSize)
+	private evalPositionCharacteristic(
+		scaledPosition: number
+	): PositionCharacteristic {
+		const pixelOffset = scaledPosition % this.dotSize
+		const cellOffset = Math.floor(scaledPosition / this.dotSize)
 		return {
-			cellOffset, pixelOffset
+			cellOffset,
+			pixelOffset
 		}
 	}
 
@@ -136,7 +138,7 @@ export default class Scaler implements IScaler {
 
 		return {
 			x: x.cellOffset,
-			y: y.cellOffset,
+			y: y.cellOffset
 		}
 	}
 }

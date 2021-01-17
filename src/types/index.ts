@@ -4,4 +4,15 @@ import {Color, ColoredGrid} from './color'
 import IntervalTimer from './IntervalTimer'
 import IIntervalTimer from './IIntervalTimer'
 
-export {NullableNumber, Nullable, TimerId, IRealCoordinate, IEmptyCoordinate, ICoordinate, Color, ColoredGrid, IntervalTimer, IIntervalTimer}
+export {
+	NullableNumber,
+	Nullable,
+	TimerId,
+	IRealCoordinate,
+	IEmptyCoordinate,
+	ICoordinate,
+	Color,
+	ColoredGrid,
+	IntervalTimer,
+	IIntervalTimer
+}

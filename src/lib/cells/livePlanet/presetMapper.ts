@@ -1,4 +1,10 @@
-import {EmptyCell, Plant, Water, ILivePlanetCell, ILivePlanetCellFactory} from './index'
+import {
+	EmptyCell,
+	Plant,
+	Water,
+	ILivePlanetCell,
+	ILivePlanetCellFactory
+} from './index'
 import {SymbolToCellMapper} from 'engine/symbolToCellMapper'
 import Predator from './Predator'
 import Herbivore from './Herbivore'
@@ -9,8 +15,11 @@ const presetMap = {
 	'|': Plant,
 	'@': Herbivore,
 	'&': Predator,
-	'default': EmptyCell
+	default: EmptyCell
 }
 
-const presetMapper = new SymbolToCellMapper<ILivePlanetCellFactory, ILivePlanetCell>(presetMap)
+const presetMapper = new SymbolToCellMapper<
+	ILivePlanetCellFactory,
+	ILivePlanetCell
+>(presetMap)
 export default presetMapper

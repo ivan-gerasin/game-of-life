@@ -1,3 +1,3 @@
 export default interface IGridRenderer {
-  render: (grid: string[][]) => void
+	render: (grid: string[][]) => void
 }

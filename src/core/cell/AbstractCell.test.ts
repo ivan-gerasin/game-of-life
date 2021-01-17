@@ -4,15 +4,15 @@ import {BaseCell, IBaseCell, IBaseCellFactory} from 'core/testsHelpers'
 import {Point} from '../point'
 
 describe('Cell', () => {
-
-	let worldMock: IWorld<IBaseCellFactory, IBaseCell>, cell: ICell<IBaseCellFactory, IBaseCell>
-	const cellPosition = Point.Point(0,0)
+	let worldMock: IWorld<IBaseCellFactory, IBaseCell>,
+		cell: ICell<IBaseCellFactory, IBaseCell>
+	const cellPosition = Point.Point(0, 0)
 
 	beforeEach(() => {
 		// @ts-ignore
 		worldMock = {
 			// @ts-ignore
-			at: jest.fn(({x,y}) => ({x,y})),
+			at: jest.fn(({x, y}) => ({x, y})),
 			settleCell: jest.fn(),
 			positionOf: jest.fn(() => cellPosition)
 		}
@@ -38,42 +38,57 @@ describe('Cell', () => {
 	})
 
 	describe('positions of neighbours', () => {
-
 		test('atTop', () => {
 			cell.atTop()
-			expect(worldMock.at).toBeCalledWith(new Point(cellPosition.x,cellPosition.y-1))
+			expect(worldMock.at).toBeCalledWith(
+				new Point(cellPosition.x, cellPosition.y - 1)
+			)
 		})
 
 		test('atBottom', () => {
 			cell.atBottom()
-			expect(worldMock.at).toBeCalledWith(new Point(cellPosition.x,cellPosition.y+1))
+			expect(worldMock.at).toBeCalledWith(
+				new Point(cellPosition.x, cellPosition.y + 1)
+			)
 		})
 
 		test('atLeft', () => {
 			cell.atLeft()
-			expect(worldMock.at).toBeCalledWith(new Point(cellPosition.x-1,cellPosition.y))
+			expect(worldMock.at).toBeCalledWith(
+				new Point(cellPosition.x - 1, cellPosition.y)
+			)
 		})
 
 		test('atRight', () => {
 			cell.atRight()
-			expect(worldMock.at).toBeCalledWith(new Point(cellPosition.x+1,cellPosition.y))
+			expect(worldMock.at).toBeCalledWith(
+				new Point(cellPosition.x + 1, cellPosition.y)
+			)
 		})
 
 		test('atTopRight', () => {
 			cell.atTopRight()
-			expect(worldMock.at).toBeCalledWith(new Point(cellPosition.x+1,cellPosition.y-1))
+			expect(worldMock.at).toBeCalledWith(
+				new Point(cellPosition.x + 1, cellPosition.y - 1)
+			)
 		})
 		test('atTopLeft', () => {
 			cell.atTopLeft()
-			expect(worldMock.at).toBeCalledWith(new Point(cellPosition.x-1,cellPosition.y-1))
+			expect(worldMock.at).toBeCalledWith(
+				new Point(cellPosition.x - 1, cellPosition.y - 1)
+			)
 		})
 		test('atBottomLeft', () => {
 			cell.atBottomLeft()
-			expect(worldMock.at).toBeCalledWith(new Point(cellPosition.x-1,cellPosition.y+1))
+			expect(worldMock.at).toBeCalledWith(
+				new Point(cellPosition.x - 1, cellPosition.y + 1)
+			)
 		})
 		test('atBottomRight', () => {
 			cell.atBottomRight()
-			expect(worldMock.at).toBeCalledWith(new Point(cellPosition.x+1,cellPosition.y+1))
+			expect(worldMock.at).toBeCalledWith(
+				new Point(cellPosition.x + 1, cellPosition.y + 1)
+			)
 		})
 	})
 })

@@ -7,8 +7,7 @@ import {Nullable} from 'types/types'
 export default abstract class AbstractCell<
 	FactoryType extends ICellFactory<FactoryType, CellType>,
 	CellType extends ICell<FactoryType, CellType>
-	> implements ICell<FactoryType, CellType> {
-
+> implements ICell<FactoryType, CellType> {
 	private readonly _world: Nullable<IWorld<FactoryType, CellType>> = null
 	private _position: Nullable<IRealPoint> = null
 
@@ -37,7 +36,9 @@ export default abstract class AbstractCell<
 			 * of type 'CellType', but 'CellType' could be instantiated with
 			 * a different subtype of constraint 'ICell<FactoryType, CellType>'.
 			 * */
-			this._position = this.world.positionOf(this as unknown as CellType)
+			this._position = this.world.positionOf(
+				(this as unknown) as CellType
+			)
 		}
 		return this._position
 	}
@@ -84,12 +85,11 @@ export default abstract class AbstractCell<
 			this.atBottom(),
 			this.atBottomLeft(),
 			this.atLeft(),
-			this.atTopLeft(),
+			this.atTopLeft()
 		]
 	}
 
 	// Mandatory method for any ICell implementation
 	// actual logic of cell
 	abstract nextGeneration(): CellType
-
 }
