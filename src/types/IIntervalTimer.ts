@@ -1,4 +1,4 @@
 export default interface IIntervalTimer {
-  start: (intervalInMs: number, callback: Function) => void
+  start: (intervalInMs: number, callback: () => void) => void
   stop: () => void
 }

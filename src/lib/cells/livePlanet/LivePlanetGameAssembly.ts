@@ -1,9 +1,9 @@
 import GameAssembly from 'engine/gameAssembly/GameAssembly'
 
 import {
-  LivePlanetCellFactory,
-  styler,
-  presetMapper,
+	LivePlanetCellFactory,
+	styler,
+	presetMapper,
 } from './index'
 
 const factory = new LivePlanetCellFactory()

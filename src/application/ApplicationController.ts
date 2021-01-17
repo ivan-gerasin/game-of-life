@@ -12,57 +12,57 @@ import IViewInputController from './IViewInputController'
 
 export default class ApplicationController<F extends ICellFactory<F,C>, C extends ICell<F,C>> implements IColoredGridConsumer{
 
-  private readonly viewRendererCtl: IViewRenderingController
-  private readonly viewInputCtl: IViewInputController
-  private readonly game: Game<F,C>
-  private readonly world: IWorld<F,C>
+	private readonly viewRendererCtl: IViewRenderingController
+	private readonly viewInputCtl: IViewInputController
+	private readonly game: Game<F,C>
+	private readonly world: IWorld<F,C>
 
-  constructor(
-    private readonly size: number,
-    preset: Preset,
-    gameAssembly: IGameAssembly<F,C>
-  ) {
-    
-    const canvasProps: ICanvasDriverProperties = {
-      size: 50,
-      scaleFactor: 10,
-      gridLineWidth: 1,
-      canvasNode: this.getCanvas()
-    }
+	constructor(
+		private readonly size: number,
+		preset: Preset,
+		gameAssembly: IGameAssembly<F,C>
+	) {
 
-    //TODO: should be provided outside
-    const driver = new CanvasDriver(canvasProps, window)
-    this.viewRendererCtl = driver
-    this.viewInputCtl = driver
+		const canvasProps: ICanvasDriverProperties = {
+			size: 50,
+			scaleFactor: 10,
+			gridLineWidth: 1,
+			canvasNode: this.getCanvas()
+		}
 
-    this.viewInputCtl.attachHandler(this.addCell)
+		//TODO: should be provided outside
+		const driver = new CanvasDriver(canvasProps, window)
+		this.viewRendererCtl = driver
+		this.viewInputCtl = driver
 
-    const worldFactory = new CommonWorldFactory()
-    this.world = worldFactory.buildWithPreset<F,C>(<F>gameAssembly.cellFactory, preset, gameAssembly.symbolToCellMapper, size)
+		this.viewInputCtl.attachHandler(this.addCell)
 
-    //TODO: should be provided outside
-    const timer = new IntervalTimer()
-    this.game = new Game(timer, this, this.world, gameAssembly.styler)
-    this.game.start()
-  }
+		const worldFactory = new CommonWorldFactory()
+		this.world = worldFactory.buildWithPreset<F,C>(<F>gameAssembly.cellFactory, preset, gameAssembly.symbolToCellMapper, size)
 
-  private getCanvas(): HTMLCanvasElement {
-    const canvas = <HTMLCanvasElement>window.document.querySelector('#canvas')
-    if (canvas === null) {
-      throw ReferenceError('Canvas not found')
-    }
-    return canvas
-  }
+		//TODO: should be provided outside
+		const timer = new IntervalTimer()
+		this.game = new Game(timer, this, this.world, gameAssembly.styler)
+		this.game.start()
+	}
 
-  private addCell = (coord: ICoordinate) => {
-    const cell = this.world.cellFactory.empty()
-    console.log(`Click on: (${coord.x},${coord.y})`)
-    if (coord.x !== null && coord.y !== null) {
-      this.world.settleCell(cell, <IRealCoordinate>coord)
-    }
-  }
+	private getCanvas(): HTMLCanvasElement {
+		const canvas = <HTMLCanvasElement>window.document.querySelector('#canvas')
+		if (canvas === null) {
+			throw ReferenceError('Canvas not found')
+		}
+		return canvas
+	}
 
-  consume(grid: ColoredGrid) {
-    this.viewRendererCtl.requestRender(grid)
-  }
+	private addCell = (coord: ICoordinate) => {
+		const cell = this.world.cellFactory.empty()
+		console.log(`Click on: (${coord.x},${coord.y})`)
+		if (coord.x !== null && coord.y !== null) {
+			this.world.settleCell(cell, <IRealCoordinate>coord)
+		}
+	}
+
+	consume(grid: ColoredGrid): void {
+		this.viewRendererCtl.requestRender(grid)
+	}
 }

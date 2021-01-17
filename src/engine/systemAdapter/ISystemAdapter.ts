@@ -5,6 +5,6 @@ interface FrameRequestCallback {
 
 export default interface ISystemAdapter {
   requestFrame: (callback: FrameRequestCallback) => void
-  setInterval: (callback: Function, intervalInMs: number) => number
+  setInterval: (callback: () => void, intervalInMs: number) => number
   clearInterval: (intervalId: number) => void
 }

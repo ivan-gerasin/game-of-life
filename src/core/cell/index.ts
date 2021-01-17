@@ -3,5 +3,5 @@ import ICell from './ICell'
 import ICellConstructor from './ICellConstructor'
 
 export {
-  AbstractCell, ICellConstructor, ICell
+	AbstractCell, ICellConstructor, ICell
 }

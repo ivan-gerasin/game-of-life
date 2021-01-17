@@ -3,36 +3,36 @@ import {ICell} from 'core/cell'
 import {IWorld} from 'core/world'
 import {ICellStyler} from 'engine/cellStyler'
 
-import IColoredGridConsumer from './IColoredGridConsumer'
-import {IIntervalTimer} from '../../types'
+import {IColoredGridConsumer} from 'engine/game'
+import {IIntervalTimer} from 'types'
 
 export default class Game<F extends ICellFactory<F, C>, C extends ICell<F,C>> {
-  interval = 1000
-  running = false
+	interval = 1000
+	running = false
 
-  constructor(
-    private readonly timer: IIntervalTimer,
-    private readonly gridConsumer: IColoredGridConsumer,
-    private readonly world: IWorld<F,C>,
-    private readonly styler: ICellStyler<F, C>
-  ) {
-  }
+	constructor(
+		private readonly timer: IIntervalTimer,
+		private readonly gridConsumer: IColoredGridConsumer,
+		private readonly world: IWorld<F,C>,
+		private readonly styler: ICellStyler<F, C>
+	) {
+	}
 
 
-  start() {
-    this.running = true
-    this.timer.start(this.interval,() => {
-      const styledGrid = this.styler.exportStyledGridFromWorld(this.world)
-      this.gridConsumer.consume(styledGrid)
-      this.world.nextGeneration()
-    })
-  }
+	start(): void {
+		this.running = true
+		this.timer.start(this.interval,() => {
+			const styledGrid = this.styler.exportStyledGridFromWorld(this.world)
+			this.gridConsumer.consume(styledGrid)
+			this.world.nextGeneration()
+		})
+	}
 
-  stop() {
-    if (this.running) {
-      this.running = false
-      this.timer.stop
-    }
-  }
+	stop(): void {
+		if (this.running) {
+			this.running = false
+			this.timer.stop
+		}
+	}
 
 }

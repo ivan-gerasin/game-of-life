@@ -1,9 +1,9 @@
 import GameAssembly from 'engine/gameAssembly/GameAssembly'
 
 import {
-  ClassicCellFactory,
-  blackWhiteStyler,
-  presetMapper,
+	ClassicCellFactory,
+	blackWhiteStyler,
+	presetMapper,
 } from './index'
 
 const factory = new ClassicCellFactory()

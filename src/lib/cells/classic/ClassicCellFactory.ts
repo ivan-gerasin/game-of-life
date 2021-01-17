@@ -8,24 +8,24 @@ type ClassicWorld = IWorld<IClassicCellFactory, IClassicCell>
 type ClassicCellConstructor = ICellConstructor<IClassicCellFactory, IClassicCell>
 
 export default class ClassicCellFactory implements IClassicCellFactory {
-  private world: Nullable<ClassicWorld> = null
+	private world: Nullable<ClassicWorld> = null
 
-  private create(Cons: ClassicCellConstructor): IClassicCell {
-    if (this.world) {
-      return  new Cons(this.world)
-    }
-    throw new ReferenceError('ClassicCellFactory does not attached to the world')
-  }
+	private create(Cons: ClassicCellConstructor): IClassicCell {
+		if (this.world) {
+			return  new Cons(this.world)
+		}
+		throw new ReferenceError('ClassicCellFactory does not attached to the world')
+	}
 
-  attachWorld(world: ClassicWorld) {
-    this.world = world
-  }
+	attachWorld(world: ClassicWorld): void {
+		this.world = world
+	}
 
-  empty(): IClassicCell {
-    return this.create(DeadCell)
-  }
+	empty(): IClassicCell {
+		return this.create(DeadCell)
+	}
 
-  alive(): IClassicCell {
-    return this.create(Cell)
-  }
+	alive(): IClassicCell {
+		return this.create(Cell)
+	}
 }

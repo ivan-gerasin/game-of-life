@@ -6,7 +6,8 @@
   "scripts": {
     "test": "jest",
     "typecheck": "tsc --noEmit --watch",
-    "server": "parcel index.html"
+    "server": "parcel index.html",
+    "lint": "eslint src/*"
   },
   "author": "",
   "license": "ISC",
@@ -19,6 +20,8 @@
     "@babel/core": "^7.12.10",
     "@tsconfig/recommended": "^1.0.1",
     "@types/jest": "^26.0.19",
+    "@typescript-eslint/eslint-plugin": "^4.13.0",
+    "@typescript-eslint/parser": "^4.13.0",
     "babel-plugin-module-resolver": "^4.1.0",
     "eslint": "^7.18.0",
     "ts-jest": "^26.4.4",

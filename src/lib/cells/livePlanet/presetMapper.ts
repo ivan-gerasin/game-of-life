@@ -4,12 +4,12 @@ import Predator from './Predator'
 import Herbivore from './Herbivore'
 
 const presetMap = {
-  '.': EmptyCell,
-  '~': Water,
-  '|': Plant,
-  '@': Herbivore,
-  '&': Predator,
-  'default': EmptyCell
+	'.': EmptyCell,
+	'~': Water,
+	'|': Plant,
+	'@': Herbivore,
+	'&': Predator,
+	'default': EmptyCell
 }
 
 const presetMapper = new SymbolToCellMapper<ILivePlanetCellFactory, ILivePlanetCell>(presetMap)

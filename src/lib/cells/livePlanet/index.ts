@@ -12,16 +12,16 @@ import Predator from './Predator'
 import assembly from './LivePlanetGameAssembly'
 
 export {
-  ILivePlanetCellFactory,
-  LivePlanetCellFactory,
-  ILivePlanetCell,
-  LiveCellType,
-  EmptyCell,
-  Plant,
-  Water,
-  Herbivore,
-  Predator,
-  presetMapper,
-  styler,
-  assembly
+	ILivePlanetCellFactory,
+	LivePlanetCellFactory,
+	ILivePlanetCell,
+	LiveCellType,
+	EmptyCell,
+	Plant,
+	Water,
+	Herbivore,
+	Predator,
+	presetMapper,
+	styler,
+	assembly
 }
