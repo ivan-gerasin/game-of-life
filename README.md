@@ -49,6 +49,8 @@ Right now you need dive into the code by yourself to adjust it to your needs.
     -   place/remove cells by mouse click
     -   time control - interval between generation, start/stop
 
+### For future releases
+
 -   Probably add some CI things
 -   Preset library - pick element from library and place it on field
 -   Rotate/mirror preset when placing it
