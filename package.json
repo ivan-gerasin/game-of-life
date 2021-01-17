@@ -1,15 +1,24 @@
 {
   "name": "life",
-  "version": "0.0.1",
-  "description": "",
-  "main": "index.js",
+  "version": "0.1.0",
+  "description": "'Game of life' - yet another one implementation",
+  "keywords": ["game of life", "cell", "conway"],
+  "homepage": "https://github.com/ivan-gerasin/game-of-life#readme",
+  "bugs": {
+    "email": "ivan@gerasin.dev",
+    "url": "https://github.com/ivan-gerasin/game-of-life/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ivan-gerasin/game-of-life"
+  },
   "scripts": {
     "test": "jest",
     "typecheck": "tsc --noEmit --watch",
     "server": "parcel index.html",
     "lint": "eslint src/*"
   },
-  "author": "",
+  "author": "Ivan Gerasin <ivan@gerasin.dev>",
   "license": "ISC",
   "dependencies": {
     "babel-plugin-module-resolver": "^4.1.0",
