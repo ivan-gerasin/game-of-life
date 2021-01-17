@@ -124,12 +124,12 @@ export default class Scaler implements IScaler {
 
   resolvePixelToCell(scaledPosition: IRealCoordinate): ICoordinate {
     const x = this.evalPositionCharacteristic(scaledPosition.x)
-    const xIsOnGrid = x.pixelOffset < this.dotSize
+    const xIsOnGrid = x.pixelOffset < this.gridLineWidth
     if (xIsOnGrid) {
       return {x: null, y: null}
     }
     const y = this.evalPositionCharacteristic(scaledPosition.y)
-    const yIsOnGrid = y.pixelOffset < this.dotSize
+    const yIsOnGrid = y.pixelOffset < this.gridLineWidth
     if (yIsOnGrid) {
       return {x: null, y: null}
     }

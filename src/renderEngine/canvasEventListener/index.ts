@@ -1,4 +1,5 @@
 import ICanvasEventListener from './ICanvasEventListener'
-import CanvasEventListener from './CanvasEventListener'
+import CanvasPixelClickEventListener from './CanvasPixelClickEventListener'
+import CanvasCellClickEventListener from './CanvasCellClickEventListener'
 
-export {ICanvasEventListener, CanvasEventListener}
+export {CanvasCellClickEventListener, ICanvasEventListener, CanvasPixelClickEventListener}

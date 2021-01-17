@@ -1,10 +1,15 @@
 import ICanvasDriver from './ICanvasDriver'
 import ICanvasDriverProperties from './ICanvasDriverProperties'
-import {CanvasEventListener, ICanvasEventListener} from 'renderEngine/canvasEventListener'
+import {
+  CanvasCellClickEventListener,
+  CanvasPixelClickEventListener,
+  ICanvasEventListener,
+} from 'renderEngine/canvasEventListener'
 import {ColoredGrid} from 'types'
 import {GridRenderer, IGridRenderer} from '../gridRenderer'
 import IRequestFrame from 'renderEngine/gridRenderer/IRequestFrame'
 import {IScaler, Scaler} from 'renderEngine/scaler'
+import {ViewInputEventHandler} from 'application'
 
 export default class CanvasDriver implements ICanvasDriver {
   private readonly size: number
@@ -25,7 +30,7 @@ export default class CanvasDriver implements ICanvasDriver {
 
     this.scaler = new Scaler(scaleFactor, gridLineWidth)
     this.renderer = this.initRenderer()
-    this.listener = new CanvasEventListener(this.canvasNode)
+    this.listener = new CanvasCellClickEventListener(this.scaler, this.canvasNode)
   }
 
   private initRenderer(): IGridRenderer {
@@ -47,6 +52,14 @@ export default class CanvasDriver implements ICanvasDriver {
 
   requestRender(grid: ColoredGrid) {
     this.renderer.render(grid)
+  }
+
+  attachHandler(handler: ViewInputEventHandler): void {
+    this.listener.attachHandler(handler)
+  }
+
+  detachHandler(handlerToDetach: ViewInputEventHandler): void {
+    this.listener.detachHandler(handlerToDetach)
   }
 
 }

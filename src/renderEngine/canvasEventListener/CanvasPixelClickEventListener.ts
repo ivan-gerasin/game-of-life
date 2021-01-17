@@ -1,23 +1,24 @@
 import ICanvasEventListener, {CanvasClickHandler} from './ICanvasEventListener'
 
-export default class CanvasEventListener implements ICanvasEventListener {
-  constructor(private readonly canvasElement: HTMLCanvasElement, private handlers: CanvasClickHandler[] = []) {
+export default class CanvasPixelClickEventListener implements ICanvasEventListener {
+  constructor(private readonly canvasElement: HTMLCanvasElement, protected handlers: CanvasClickHandler[] = []) {
     if (handlers.length) {
       this.addEventListener()
     }
   }
 
   private addEventListener() {
-    this.canvasElement.addEventListener('click', this.listener.bind(this))
+    this.canvasElement.addEventListener('click', this.eventDispatcher)
   }
 
   private removeEventListener() {
-    this.canvasElement.removeEventListener('click', this.listener.bind(this))
+    this.canvasElement.removeEventListener('click', this.eventDispatcher)
   }
 
-  private listener(event: MouseEvent) {
+  protected eventDispatcher = (event: MouseEvent) => {
+    console.log('pixel dispatcher')
     const {offsetX: x, offsetY: y} = event
-    this.handlers.forEach(handler => handler(x,y))
+    this.handlers.forEach(handler => handler({x,y}))
   }
 
   attachHandler(handler: CanvasClickHandler) {

@@ -1,5 +1,5 @@
-import IViewController from 'application/IViewController'
+import {IViewRenderingController, IViewInputController} from 'application'
 
-export default interface ICanvasDriver extends IViewController {
+export default interface ICanvasDriver extends IViewRenderingController, IViewInputController {
 
 }

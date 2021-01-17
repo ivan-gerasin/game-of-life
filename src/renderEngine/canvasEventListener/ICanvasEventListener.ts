@@ -1,4 +1,6 @@
-export type CanvasClickHandler = (x: number, y: number) => void
+import {ICoordinate} from 'types'
+
+export type CanvasClickHandler = (pos: ICoordinate) => void
 
 export default interface ICanvasEventListener {
   attachHandler(handler: CanvasClickHandler): void
