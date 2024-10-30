@@ -1,8 +1,6 @@
 # Conway's "Game of Life"
 
-[![Build Status](https://travis-ci.org/ivan-gerasin/game-of-life.svg?branch=master)](https://travis-ci.org/ivan-gerasin/game-of-life)
-
-**Status:** _in development_, no any releases yet.
+**Status:** _abandoned_, no any releases.
 
 ## Highlights:
 
